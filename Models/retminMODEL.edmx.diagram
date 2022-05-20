@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="77a263f94ef14c0cb49c1b0275a2eb62" Name="Diagram1">
+        <EntityTypeShape EntityType="RETMINModel.BODEGA" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RETMINModel.DESCRIPCION_KARDEX" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RETMINModel.KARDEX" Width="1.5" PointX="6" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RETMINModel.PROVEEDOR" Width="1.5" PointX="3.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RETMINModel.SUCURSAL" Width="1.5" PointX="1.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="RETMINModel.sysdiagrams" Width="1.5" PointX="8.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="RETMINModel.USUARIO" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <AssociationConnector Association="RETMINModel.FK_BODEGA_RELATIONS_SUCURSAL" ManuallyRouted="false" />
+        <AssociationConnector Association="RETMINModel.FK_KARDEX_RELATIONS_BODEGA" ManuallyRouted="false" />
+        <AssociationConnector Association="RETMINModel.FK_DESCRIPC_RELATIONS_KARDEX" ManuallyRouted="false" />
+        <AssociationConnector Association="RETMINModel.FK_DESCRIPC_RELATIONS_USUARIO" ManuallyRouted="false" />
+        <AssociationConnector Association="RETMINModel.FK_KARDEX_RELATIONS_PROVEEDO" ManuallyRouted="false" />
+        <AssociationConnector Association="RETMINModel.FK_KARDEX_RELATIONS_USUARIO" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
