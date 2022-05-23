@@ -1,0 +1,112 @@
+﻿@model RETMINSISTEM.Models.DESCRIPCION_KARDEX
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>DESCRIPCION_KARDEX</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_KARDEX)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_KARDEX)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DESCRIPCION_KARDEX1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPCION_KARDEX1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIPO_TRANSACION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIPO_TRANSACION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VALOR_UNITARIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALOR_UNITARIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CANTIDAD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CANTIDAD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VALOR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALOR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CANTIDAD_SALDO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CANTIDAD_SALDO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VALOR_SALDO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALOR_SALDO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CADUCIDAD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CADUCIDAD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KARDEX.ARTICULO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KARDEX.ARTICULO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.USUARIO.COD_USUARIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.USUARIO.COD_USUARIO)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

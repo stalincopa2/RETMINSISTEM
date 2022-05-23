@@ -8,7 +8,7 @@ namespace RETMINSISTEM
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-            filters.Add(new Filters.Verificacion());
+            //filters.Add(new Filters.Verificacion());
         }
     }
 }

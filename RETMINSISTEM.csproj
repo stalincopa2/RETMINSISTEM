@@ -142,10 +142,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\errorController.cs" />
+    <Compile Include="Controllers\BODEGAsController.cs" />
+    <Compile Include="Controllers\DESCRIPCION_KARDEXController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Filters\autorizacionUser.cs" />
+    <Compile Include="Controllers\PROVEEDORsController.cs" />
+    <Compile Include="Controllers\SUCURSALsController.cs" />
+    <Compile Include="Controllers\USUARIOsController.cs" />
     <Compile Include="Filters\Verificacion.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -243,9 +246,31 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LayoudLogin.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
-    <Content Include="Views\Home\Inventario.cshtml" />
-    <Content Include="Views\error\UnatorizedOperation.cshtml" />
-    <Content Include="Views\Home\usuarios.cshtml" />
+    <Content Include="Views\BODEGAs\Create.cshtml" />
+    <Content Include="Views\BODEGAs\Delete.cshtml" />
+    <Content Include="Views\BODEGAs\Details.cshtml" />
+    <Content Include="Views\BODEGAs\Edit.cshtml" />
+    <Content Include="Views\BODEGAs\Index.cshtml" />
+    <Content Include="Views\USUARIOs\Create.cshtml" />
+    <Content Include="Views\USUARIOs\Delete.cshtml" />
+    <Content Include="Views\USUARIOs\Details.cshtml" />
+    <Content Include="Views\USUARIOs\Edit.cshtml" />
+    <Content Include="Views\USUARIOs\Index.cshtml" />
+    <Content Include="Views\SUCURSALs\Create.cshtml" />
+    <Content Include="Views\SUCURSALs\Delete.cshtml" />
+    <Content Include="Views\SUCURSALs\Details.cshtml" />
+    <Content Include="Views\SUCURSALs\Edit.cshtml" />
+    <Content Include="Views\SUCURSALs\Index.cshtml" />
+    <Content Include="Views\PROVEEDORs\Create.cshtml" />
+    <Content Include="Views\PROVEEDORs\Delete.cshtml" />
+    <Content Include="Views\PROVEEDORs\Details.cshtml" />
+    <Content Include="Views\PROVEEDORs\Edit.cshtml" />
+    <Content Include="Views\PROVEEDORs\Index.cshtml" />
+    <Content Include="Views\DESCRIPCION_KARDEX\Create.cshtml" />
+    <Content Include="Views\DESCRIPCION_KARDEX\Delete.cshtml" />
+    <Content Include="Views\DESCRIPCION_KARDEX\Details.cshtml" />
+    <Content Include="Views\DESCRIPCION_KARDEX\Edit.cshtml" />
+    <Content Include="Views\DESCRIPCION_KARDEX\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

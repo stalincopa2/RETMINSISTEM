@@ -1,0 +1,50 @@
+﻿@model RETMINSISTEM.Models.BODEGA
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BODEGA</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.COD_BODEGA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COD_BODEGA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UBICACION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UBICACION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DESCRIPCION_BODEGA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPCION_BODEGA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SUCURSAL.RUC_SUCURSAL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SUCURSAL.RUC_SUCURSAL)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_BODEGA }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

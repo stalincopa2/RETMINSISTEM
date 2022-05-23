@@ -1,0 +1,58 @@
+﻿@model RETMINSISTEM.Models.SUCURSAL
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SUCURSAL</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RUC_SUCURSAL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RUC_SUCURSAL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COD_SUCURSAL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COD_SUCURSAL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NOMBRE_SUCURSAL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NOMBRE_SUCURSAL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DIRECCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DIRECCION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TELEFONO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TELEFONO)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_SUCURSAL }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

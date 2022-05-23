@@ -1,0 +1,51 @@
+﻿@model IEnumerable<RETMINSISTEM.Models.BODEGA>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.COD_BODEGA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UBICACION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DESCRIPCION_BODEGA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SUCURSAL.RUC_SUCURSAL)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.COD_BODEGA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UBICACION)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DESCRIPCION_BODEGA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SUCURSAL.RUC_SUCURSAL)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_BODEGA }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_BODEGA }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_BODEGA })
+        </td>
+    </tr>
+}
+
+</table>
