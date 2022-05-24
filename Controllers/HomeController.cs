@@ -9,13 +9,14 @@ namespace RETMINSISTEM.Controllers
 {
     public class HomeController : Controller
     {
-       
+
         public ActionResult Index()
         {
             return View();
         }
 
-        [autorizacionUser(ROL: 1)]
+
+        [autorizacionUser(ROL: new int[] {1,2})]
         public ActionResult usuarios()
         {
             ViewBag.Message = "Your application description page.";
@@ -42,6 +43,11 @@ namespace RETMINSISTEM.Controllers
             ViewBag.Message = "Ahora estas en el inventario.";
 
             return View();
+        }
+        public ActionResult Logout()
+        {
+            Session["User"] = null;
+            return RedirectToAction("Index");
         }
     }
 }
