@@ -145,47 +145,21 @@
     <Compile Include="Controllers\errorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Filters\autorizacionUser.cs" />
     <Compile Include="Filters\Verificacion.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\BODEGA.cs">
-      <DependentUpon>retminMODEL.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DESCRIPCION_KARDEX.cs">
-      <DependentUpon>retminMODEL.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\KARDEX.cs">
-      <DependentUpon>retminMODEL.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PROVEEDOR.cs">
-      <DependentUpon>retminMODEL.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\retminMODEL.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>retminMODEL.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\retminMODEL.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>retminMODEL.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\retminMODEL.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>retminMODEL.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SUCURSAL.cs">
-      <DependentUpon>retminMODEL.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>retminMODEL.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\USUARIO.cs">
-      <DependentUpon>retminMODEL.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\BODEGA.cs" />
+    <Compile Include="Models\DESCRIPCION_KARDEX.cs" />
+    <Compile Include="Models\KARDEX.cs" />
+    <Compile Include="Models\Model.cs" />
+    <Compile Include="Models\PROVEEDOR.cs" />
+    <Compile Include="Models\ROL.cs" />
+    <Compile Include="Models\SUCURSAL.cs" />
+    <Compile Include="Models\USUARIO.cs" />
+    <Compile Include="Models\VEHICULO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -197,25 +171,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\retminMODEL.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>retminMODEL.edmx</DependentUpon>
-      <LastGenOutput>retminMODEL.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\retminMODEL.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>retminMODEL.edmx</DependentUpon>
-      <LastGenOutput>retminMODEL.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\retminMODEL.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>retminMODEL.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\retminMODEL.edmx.diagram">
-      <DependentUpon>retminMODEL.edmx</DependentUpon>
-    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -246,6 +203,11 @@
     <Content Include="Views\Home\Inventario.cshtml" />
     <Content Include="Views\error\UnatorizedOperation.cshtml" />
     <Content Include="Views\Home\usuarios.cshtml" />
+    <Content Include="Views\Usuario\Create.cshtml" />
+    <Content Include="Views\Usuario\Delete.cshtml" />
+    <Content Include="Views\Usuario\Details.cshtml" />
+    <Content Include="Views\Usuario\Edit.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -10,7 +10,7 @@ namespace RETMINSISTEM.Filters
 {
     public class Verificacion: ActionFilterAttribute
     {
-        private USUARIO objUsuario;
+        private object objSesion;
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
@@ -18,8 +18,9 @@ namespace RETMINSISTEM.Filters
             {
                 base.OnActionExecuting(filterContext);
 
-                objUsuario = (USUARIO)HttpContext.Current.Session["User"];
-                if (objUsuario == null) { 
+                objSesion = HttpContext.Current.Session["User"];
+
+                if (objSesion == null) { 
                     if (filterContext.Controller is LoginController == false)
                     {
                         filterContext.HttpContext.Response.Redirect("/Login/Login");

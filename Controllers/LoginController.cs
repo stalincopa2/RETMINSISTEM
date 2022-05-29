@@ -1,5 +1,9 @@
-﻿using System;
+﻿using RETMINSISTEM.Models;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -18,24 +22,43 @@ namespace RETMINSISTEM.Controllers
         public ActionResult Login(string User, string password)
         {
             try {
-
-                using (Models.RETMINEntities1 db = new Models.RETMINEntities1())
+                String conectar = ConfigurationManager.ConnectionStrings["RETMINDBENTITIES"].ConnectionString;
                 {
-                    var oUser = (from d in db.USUARIO
-                                where d.USUARIO1==User.Trim() && d.CONTRACENIA == password.Trim()
-                                select d).FirstOrDefault();
-
-                    if (oUser == null)
+                    
+                    SqlConnection con = new SqlConnection(conectar);
+                    
+              
+                    using (con)
                     {
-                        ViewBag.Error = "Usuario o contracenia incorrecta";
-                        return View();
-                    }
-                    Session["User"] = oUser;
+                        using (SqlCommand verificacionUser = new SqlCommand("DECRYPTION_PASSWORD", con))
+                        {
+                            verificacionUser.CommandType = CommandType.StoredProcedure;
+                            verificacionUser.Parameters.Add("@CLAVE", SqlDbType.VarChar).Value = "RETMINSIS";
+                            verificacionUser.Parameters.Add("@PASSWORD", SqlDbType.VarChar).Value = password;
+                            verificacionUser.Parameters.Add("@USUARIO", SqlDbType.VarChar).Value = User;
+                            con.Open();
+                            var oUser = verificacionUser.ExecuteReader(CommandBehavior.CloseConnection);
+                            
+                            if (oUser.Read())
+                            {
 
+                                Session["User"] = oUser["ID_ROL"];
+                            }
+                            else
+                            {
+                                ViewBag.Error = "Usuario o contracenia incorrecta";
+                                return View();
+                            }
+                                                      
+                            con.Close();
+                           
+                        }
+                    }
+                 
                 }
 
 
-            return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
             }
             catch(Exception ex) {
                 ViewBag.Error = ex.Message;
