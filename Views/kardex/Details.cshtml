@@ -1,0 +1,107 @@
+﻿@model RETMINSISTEM.Models.KARDEX
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>KARDEX</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BODEGA.COD_BODEGA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BODEGA.COD_BODEGA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PROVEEDOR.COD_PROOVEDOR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PROVEEDOR.COD_PROOVEDOR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.USUARIO.COD_USUARIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.USUARIO.COD_USUARIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COD_KARDEX)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COD_KARDEX)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ARTICULO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ARTICULO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UNIDADES)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UNIDADES)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.STOCK_MIN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.STOCK_MIN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.STOCK_MAX)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.STOCK_MAX)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LOCALIZACION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LOCALIZACION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIPO_KARDEX)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIPO_KARDEX)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FOTO_ARTICULO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FOTO_ARTICULO)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_KARDEX }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

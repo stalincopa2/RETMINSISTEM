@@ -30,9 +30,6 @@
         <th>
             @Html.DisplayNameFor(model => model.USUARIO1)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CONTRACENIA)
-        </th>
         <th></th>
     </tr>
 
@@ -56,9 +53,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.USUARIO1)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CONTRACENIA)
-        </td>
+
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID_USUARIO }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID_USUARIO }) |

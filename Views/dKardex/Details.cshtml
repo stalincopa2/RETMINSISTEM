@@ -1,0 +1,107 @@
+﻿@model RETMINSISTEM.Models.DESCRIPCION_KARDEX
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DESCRIPCION_KARDEX</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.KARDEX.COD_KARDEX)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KARDEX.COD_KARDEX)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.USUARIO.COD_USUARIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.USUARIO.COD_USUARIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_KARDEX)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_KARDEX)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DESCRIPCION_KARDEX1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPCION_KARDEX1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIPO_TRANSACION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIPO_TRANSACION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VALOR_UNITARIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALOR_UNITARIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CANTIDAD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CANTIDAD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VALOR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALOR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CANTIDAD_SALDO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CANTIDAD_SALDO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VALOR_SALDO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALOR_SALDO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CADUCIDAD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CADUCIDAD)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_DESCRIPCION_KARDEX }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

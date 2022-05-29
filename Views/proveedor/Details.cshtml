@@ -1,0 +1,67 @@
+﻿@model RETMINSISTEM.Models.PROVEEDOR
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PROVEEDOR</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.COD_PROOVEDOR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COD_PROOVEDOR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NOMBRE_PROVEEDOR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NOMBRE_PROVEEDOR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.APELLIDO_PROVEEDOR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.APELLIDO_PROVEEDOR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EMPRESA_REPRESENTA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EMPRESA_REPRESENTA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CONTACTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CONTACTO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CORREO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CORREO)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_PROVEEDOR }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

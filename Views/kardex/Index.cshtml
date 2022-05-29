@@ -1,0 +1,94 @@
+﻿@model IEnumerable<RETMINSISTEM.Models.KARDEX>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BODEGA.COD_BODEGA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PROVEEDOR.COD_PROOVEDOR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.USUARIO.COD_USUARIO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.COD_KARDEX)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ARTICULO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UNIDADES)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.STOCK_MIN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.STOCK_MAX)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LOCALIZACION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TIPO_KARDEX)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FOTO_ARTICULO)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BODEGA.COD_BODEGA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PROVEEDOR.COD_PROOVEDOR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.USUARIO.COD_USUARIO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.COD_KARDEX)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ARTICULO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UNIDADES)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.STOCK_MIN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.STOCK_MAX)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LOCALIZACION)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TIPO_KARDEX)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FOTO_ARTICULO)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_KARDEX }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_KARDEX }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_KARDEX })
+        </td>
+    </tr>
+}
+
+</table>

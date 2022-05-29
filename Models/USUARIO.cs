@@ -40,11 +40,13 @@ namespace RETMINSISTEM.Models
         [Column("USUARIO")]
         [Required]
         [StringLength(18)]
-        public string USUARIO1 { get; set; }
+        public string USUARIO1 { get; set; } //se le pone USUARIO1 para que no se confunda con el contructor de la clase USUARIO
 
+        /*Este atributo da confilctos con la insertación de un nuevo usuario*/
+        /*
         [Required]
         [MaxLength(800)]
-        public byte[] CONTRACENIA { get; set; }
+        public byte[] CONTRACENIA { get; set; }*/
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DESCRIPCION_KARDEX> DESCRIPCION_KARDEX { get; set; }

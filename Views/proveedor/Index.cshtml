@@ -1,0 +1,64 @@
+﻿@model IEnumerable<RETMINSISTEM.Models.PROVEEDOR>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.COD_PROOVEDOR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NOMBRE_PROVEEDOR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.APELLIDO_PROVEEDOR)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EMPRESA_REPRESENTA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CONTACTO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CORREO)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.COD_PROOVEDOR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NOMBRE_PROVEEDOR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.APELLIDO_PROVEEDOR)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EMPRESA_REPRESENTA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CONTACTO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CORREO)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_PROVEEDOR }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_PROVEEDOR }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_PROVEEDOR })
+        </td>
+    </tr>
+}
+
+</table>
