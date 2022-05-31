@@ -9,12 +9,6 @@ namespace RETMINSISTEM.Models
     [Table("KARDEX")]
     public partial class KARDEX
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public KARDEX()
-        {
-            DESCRIPCION_KARDEX = new HashSet<DESCRIPCION_KARDEX>();
-        }
-
         [Key]
         public short ID_KARDEX { get; set; }
 
@@ -46,9 +40,13 @@ namespace RETMINSISTEM.Models
 
         public short TIPO_KARDEX { get; set; }
 
-        [MaxLength(255)]
+        [Column(TypeName = "image")]
         public byte[] FOTO_ARTICULO { get; set; }
-
+        /*
+        [Column(TypeName = "text")]
+        public string foto { get; set; }
+        */
+      
         public virtual BODEGA BODEGA { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

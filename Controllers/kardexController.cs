@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using RETMINSISTEM.Models;
 
 namespace RETMINSISTEM.Controllers
@@ -39,9 +41,9 @@ namespace RETMINSISTEM.Controllers
         // GET: kardex/Create
         public ActionResult Create()
         {
-            ViewBag.ID_BODEGA = new SelectList(db.BODEGA, "ID_BODEGA", "COD_BODEGA");
+           // ViewBag.ID_BODEGA = new SelectList(db.BODEGA, "ID_BODEGA", "COD_BODEGA");
             ViewBag.ID_PROVEEDOR = new SelectList(db.PROVEEDOR, "ID_PROVEEDOR", "COD_PROOVEDOR");
-            ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO");
+           // ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO");
             return View();
         }
 
@@ -50,10 +52,13 @@ namespace RETMINSISTEM.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_KARDEX,ID_PROVEEDOR,ID_BODEGA,ID_USUARIO,COD_KARDEX,ARTICULO,UNIDADES,STOCK_MIN,STOCK_MAX,LOCALIZACION,TIPO_KARDEX,FOTO_ARTICULO")] KARDEX kARDEX)
+        public ActionResult Create([Bind(Include = "ID_KARDEX,ID_PROVEEDOR,ID_BODEGA,ID_USUARIO,COD_KARDEX,ARTICULO,UNIDADES,STOCK_MIN,STOCK_MAX,LOCALIZACION,TIPO_KARDEX")] KARDEX kARDEX, HttpPostedFileBase FOTO_ARTICULO)
         {
+           
             if (ModelState.IsValid)
             {
+                kARDEX.FOTO_ARTICULO = new byte[FOTO_ARTICULO.ContentLength];
+                FOTO_ARTICULO.InputStream.Read(kARDEX.FOTO_ARTICULO, 0, FOTO_ARTICULO.ContentLength);
                 db.KARDEX.Add(kARDEX);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -7,10 +7,10 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "KARDEX", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>KARDEX</h4>
         <hr />
@@ -23,21 +23,8 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ID_BODEGA, "ID_BODEGA", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ID_BODEGA", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ID_BODEGA, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ID_USUARIO, "ID_USUARIO", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ID_USUARIO", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ID_USUARIO, "", new { @class = "text-danger" })
-            </div>
-        </div>
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.COD_KARDEX, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -98,7 +85,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FOTO_ARTICULO, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FOTO_ARTICULO, new { htmlAttributes = new { @class = "form-control" } })
+                <input type="file" name="FOTO_ARTICULO" id="FOTO_ARTICULO" class="form-control" />
                 @Html.ValidationMessageFor(model => model.FOTO_ARTICULO, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -106,10 +93,25 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
+
             </div>
         </div>
     </div>
 }
+<!--
+<script>
+    function showImage(input) {
+        if (input.files && input.files[0]) {
+            var leer = new FileReader();
+            leer.onload = function (e) {
+                document.getElementsByTagName("img")[0].setAttribute("src", e.target.result);
+            }
+            leer.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+    -->
+
 
 <div>
     @Html.ActionLink("Back to List", "Index")

@@ -62,8 +62,7 @@ namespace RETMINSISTEM.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<KARDEX>()
-                .Property(e => e.FOTO_ARTICULO)
-                .IsFixedLength();
+                .Property(e => e.FOTO_ARTICULO);
 
             modelBuilder.Entity<PROVEEDOR>()
                 .Property(e => e.COD_PROOVEDOR)

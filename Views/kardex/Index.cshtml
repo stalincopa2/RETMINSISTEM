@@ -48,7 +48,8 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.BODEGA.COD_BODEGA)
@@ -81,7 +82,19 @@
             @Html.DisplayFor(modelItem => item.TIPO_KARDEX)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FOTO_ARTICULO)
+            @{
+                if (item.FOTO_ARTICULO != null)
+                {
+                    var base64 = Convert.ToBase64String(item.FOTO_ARTICULO);
+                    var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                    <img src="@imgsrc"  style="max-width:100px; max-height:100px;" />
+                }
+                else
+                {
+                    <img src="~/Sources/productBase.jpg" style="max-width:100px; max-height:100px;" />
+                }
+            }
+
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID_KARDEX }) |

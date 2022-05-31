@@ -42,6 +42,7 @@ namespace RETMINSISTEM.Models
         [StringLength(18)]
         public string USUARIO1 { get; set; } //se le pone USUARIO1 para que no se confunda con el contructor de la clase USUARIO
 
+
         /*Este atributo da confilctos con la insertación de un nuevo usuario*/
         /*
         [Required]
