@@ -152,7 +152,7 @@
     <Compile Include="Controllers\sucursalController.cs" />
     <Compile Include="Controllers\usuarioController.cs" />
     <Compile Include="Controllers\vehiculoController.cs" />
-    <Compile Include="Filters\autorizacionUser.cs" />
+    <Compile Include="Filters\AutorizacionUser.cs" />
     <Compile Include="Filters\Verificacion.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -164,6 +164,7 @@
     <Compile Include="Models\PROVEEDOR.cs" />
     <Compile Include="Models\ROL.cs" />
     <Compile Include="Models\SUCURSAL.cs" />
+    <Compile Include="Models\sysdiagrams.cs" />
     <Compile Include="Models\USUARIO.cs" />
     <Compile Include="Models\VEHICULO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

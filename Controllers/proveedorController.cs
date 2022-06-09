@@ -46,8 +46,12 @@ namespace RETMINSISTEM.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_PROVEEDOR,COD_PROOVEDOR,NOMBRE_PROVEEDOR,APELLIDO_PROVEEDOR,EMPRESA_REPRESENTA,CONTACTO,CORREO")] PROVEEDOR pROVEEDOR)
+        public ActionResult Create([Bind(Include = "ID_PROVEEDOR,NOMBRE_PROVEEDOR,APELLIDO_PROVEEDOR,EMPRESA_REPRESENTA,CONTACTO,CORREO")] PROVEEDOR pROVEEDOR)
         {
+          
+            int ID_PROVEEDOR_ACTUAL = (db.PROVEEDOR.ToList().Count() + 1);
+            pROVEEDOR.COD_PROOVEDOR = "PR" + ID_PROVEEDOR_ACTUAL.ToString("D8");
+
             if (ModelState.IsValid)
             {
                 db.PROVEEDOR.Add(pROVEEDOR);
@@ -78,7 +82,7 @@ namespace RETMINSISTEM.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_PROVEEDOR,COD_PROOVEDOR,NOMBRE_PROVEEDOR,APELLIDO_PROVEEDOR,EMPRESA_REPRESENTA,CONTACTO,CORREO")] PROVEEDOR pROVEEDOR)
+        public ActionResult Edit([Bind(Include = "ID_PROVEEDOR,NOMBRE_PROVEEDOR,APELLIDO_PROVEEDOR,EMPRESA_REPRESENTA,CONTACTO,CORREO")] PROVEEDOR pROVEEDOR)
         {
             if (ModelState.IsValid)
             {

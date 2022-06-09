@@ -22,9 +22,8 @@ namespace RETMINSISTEM.Filters
 
                 if (objSesion == null) { 
                     if (filterContext.Controller is LoginController == false)
-                    {
+                    {  
                         filterContext.HttpContext.Response.Redirect("/Login/Login");
-
                     }
                 }
                }catch

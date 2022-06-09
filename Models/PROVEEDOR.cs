@@ -18,7 +18,7 @@ namespace RETMINSISTEM.Models
         [Key]
         public int ID_PROVEEDOR { get; set; }
 
-        [Required]
+        
         [StringLength(10)]
         public string COD_PROOVEDOR { get; set; }
 

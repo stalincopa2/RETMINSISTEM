@@ -20,7 +20,7 @@ namespace RETMINSISTEM.Models
 
         public int ID_SUCURSAL { get; set; }
 
-        [Required]
+     
         [StringLength(10)]
         public string COD_BODEGA { get; set; }
 

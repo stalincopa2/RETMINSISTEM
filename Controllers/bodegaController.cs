@@ -48,8 +48,11 @@ namespace RETMINSISTEM.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_BODEGA,ID_SUCURSAL,COD_BODEGA,UBICACION,DESCRIPCION_BODEGA")] BODEGA bODEGA)
+        public ActionResult Create([Bind(Include = "ID_BODEGA,ID_SUCURSAL,UBICACION,DESCRIPCION_BODEGA")] BODEGA bODEGA)
         {
+            int ID_BODEGA_ACTUAL = (db.BODEGA.ToList().Count() + 1);
+            bODEGA.COD_BODEGA = "B" + ID_BODEGA_ACTUAL.ToString("D9");
+
             if (ModelState.IsValid)
             {
                 db.BODEGA.Add(bODEGA);

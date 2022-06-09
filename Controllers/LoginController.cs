@@ -41,8 +41,10 @@ namespace RETMINSISTEM.Controllers
                             
                             if (oUser.Read())
                             {
-
                                 Session["User"] = oUser["ID_ROL"];
+                                Session["ID_USUARIO"] = oUser["ID_USUARIO"];
+                                Session["ID_SUCURSAL"] = oUser["ID_SUCURSAL"];
+                                Session["COD_USUARIO"] = oUser["COD_USUARIO"]; 
                             }
                             else
                             {

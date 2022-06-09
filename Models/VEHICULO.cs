@@ -12,10 +12,10 @@ namespace RETMINSISTEM.Models
         [Key]
         public int ID_VEHICULO { get; set; }
 
-        public int ID_SUCURSAL { get; set; }
+        public int? ID_SUCURSAL { get; set; }
 
         [StringLength(10)]
-        public string COD_VEHICULO { get; set; }
+        public string COD_VECHICULO { get; set; }
 
         [StringLength(50)]
         public string MARCA { get; set; }

@@ -16,7 +16,7 @@ namespace RETMINSISTEM.Controllers
         }
 
 
-        [autorizacionUser(ROL: new int[] {1,2})]
+        [AutorizacionUser(ROL: new int[] {1,2})]
         public ActionResult usuarios()
         {
             ViewBag.Message = "Your application description page.";

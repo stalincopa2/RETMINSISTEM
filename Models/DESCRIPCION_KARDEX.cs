@@ -11,7 +11,7 @@ namespace RETMINSISTEM.Models
         [Key]
         public int ID_DESCRIPCION_KARDEX { get; set; }
 
-        public short? ID_KARDEX { get; set; }
+        public int? ID_KARDEX { get; set; }
 
         public int? ID_USUARIO { get; set; }
 

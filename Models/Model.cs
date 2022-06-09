@@ -18,6 +18,7 @@ namespace RETMINSISTEM.Models
         public virtual DbSet<PROVEEDOR> PROVEEDOR { get; set; }
         public virtual DbSet<ROL> ROL { get; set; }
         public virtual DbSet<SUCURSAL> SUCURSAL { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<USUARIO> USUARIO { get; set; }
         public virtual DbSet<VEHICULO> VEHICULO { get; set; }
 
@@ -61,9 +62,6 @@ namespace RETMINSISTEM.Models
                 .Property(e => e.LOCALIZACION)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<KARDEX>()
-                .Property(e => e.FOTO_ARTICULO);
-
             modelBuilder.Entity<PROVEEDOR>()
                 .Property(e => e.COD_PROOVEDOR)
                 .IsUnicode(false);
@@ -92,11 +90,6 @@ namespace RETMINSISTEM.Models
                 .Property(e => e.NOMBRE_ROL)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<ROL>()
-                .HasMany(e => e.USUARIO)
-                .WithRequired(e => e.ROL)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<SUCURSAL>()
                 .Property(e => e.RUC_SUCURSAL)
                 .IsUnicode(false);
@@ -122,11 +115,6 @@ namespace RETMINSISTEM.Models
                 .WithRequired(e => e.SUCURSAL)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<SUCURSAL>()
-                .HasMany(e => e.VEHICULO)
-                .WithRequired(e => e.SUCURSAL)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<USUARIO>()
                 .Property(e => e.COD_USUARIO)
                 .IsUnicode(false);
@@ -148,7 +136,7 @@ namespace RETMINSISTEM.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<VEHICULO>()
-                .Property(e => e.COD_VEHICULO)
+                .Property(e => e.COD_VECHICULO)
                 .IsUnicode(false);
 
             modelBuilder.Entity<VEHICULO>()

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using RETMINSISTEM.Filters;
 using RETMINSISTEM.Models;
 
 namespace RETMINSISTEM.Controllers
@@ -17,6 +18,7 @@ namespace RETMINSISTEM.Controllers
         private Model db = new Model();
 
         // GET: usuario
+        [AutorizacionUser(ROL: new int[] { 1, 2 })]
         public ActionResult Index()
         {
             var uSUARIO = db.USUARIO.Include(u => u.ROL);
@@ -42,6 +44,7 @@ namespace RETMINSISTEM.Controllers
         public ActionResult Create()
         {
             ViewBag.ID_ROL = new SelectList(db.ROL, "ID_ROL", "NOMBRE_ROL");
+            ViewBag.ID_SUCURSAL = new SelectList(db.SUCURSAL, "ID_SUCURSAL", "NOMBRE_SUCURSAL");
             return View();
         }
 
@@ -50,8 +53,10 @@ namespace RETMINSISTEM.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_USUARIO,ID_ROL,COD_USUARIO,CEDULA,NOMBRE,APELLIDO,USUARIO1")] USUARIO uSUARIO, String password)
+        public ActionResult Create([Bind(Include = "ID_USUARIO,ID_SUCURSAL,ID_ROL,CEDULA,NOMBRE,APELLIDO,USUARIO1")] USUARIO uSUARIO, String password)
         {
+            int ID_USUARIO_ACTUAL = (db.USUARIO.ToList().Count()+1);
+
             try
             {
                 String conectar = ConfigurationManager.ConnectionStrings["RETMINDBENTITIES"].ConnectionString;
@@ -64,11 +69,14 @@ namespace RETMINSISTEM.Controllers
                     {
                         using (SqlCommand insertUser = new SqlCommand("INSERT_USUARIO", con))
                         {
-
+                           
                             if (ModelState.IsValid)
                             {
+                                uSUARIO.COD_USUARIO = "U" + ID_USUARIO_ACTUAL.ToString("D9");// Generador de codigo en base al numero de registro
+
                                 insertUser.CommandType = CommandType.StoredProcedure;
                                 insertUser.Parameters.Add("@ID_ROL", SqlDbType.Int).Value = uSUARIO.ID_ROL;
+                                insertUser.Parameters.Add("@ID_SUCURSAL", SqlDbType.Int).Value = uSUARIO.ID_SUCURSAL;
                                 insertUser.Parameters.Add("@COD_USUARIO", SqlDbType.VarChar).Value = uSUARIO.COD_USUARIO;
                                 insertUser.Parameters.Add("@CEDULA", SqlDbType.VarChar).Value = uSUARIO.CEDULA;
                                 insertUser.Parameters.Add("@NOMBRE", SqlDbType.VarChar).Value = uSUARIO.NOMBRE;
@@ -107,6 +115,8 @@ namespace RETMINSISTEM.Controllers
             {
                 return HttpNotFound();
             }
+
+
             ViewBag.ID_ROL = new SelectList(db.ROL, "ID_ROL", "NOMBRE_ROL", uSUARIO.ID_ROL);
             return View(uSUARIO);
         }
@@ -119,7 +129,7 @@ namespace RETMINSISTEM.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_USUARIO,ID_ROL,COD_USUARIO,CEDULA,NOMBRE,APELLIDO,USUARIO1")] USUARIO uSUARIO, string password)
+        public ActionResult Edit([Bind(Include = "ID_USUARIO,ID_SUCURSAL, ID_ROL,CEDULA,NOMBRE,APELLIDO,USUARIO1")] USUARIO uSUARIO, string password)
         {
             try
             {
@@ -138,6 +148,7 @@ namespace RETMINSISTEM.Controllers
                                 updatetUser.CommandType = CommandType.StoredProcedure;
                                 updatetUser.Parameters.Add("@ID_USUARIO", SqlDbType.Int).Value = uSUARIO.ID_USUARIO;
                                 updatetUser.Parameters.Add("@ID_ROL", SqlDbType.Int).Value = uSUARIO.ID_ROL;
+                                updatetUser.Parameters.Add("@ID_SUCURSAL", SqlDbType.Int).Value = uSUARIO.ID_SUCURSAL;
                                 updatetUser.Parameters.Add("@COD_USUARIO", SqlDbType.VarChar).Value = uSUARIO.COD_USUARIO;
                                 updatetUser.Parameters.Add("@CEDULA", SqlDbType.VarChar).Value = uSUARIO.CEDULA;
                                 updatetUser.Parameters.Add("@NOMBRE", SqlDbType.VarChar).Value = uSUARIO.NOMBRE;
@@ -155,10 +166,11 @@ namespace RETMINSISTEM.Controllers
                     }
                 }
             }
-            catch 
+            catch( Exception e)
             {
-
+                
             }
+            ViewBag.ID_SUCURSAL = new SelectList(db.SUCURSAL, "ID_SUCURSAL", "NOMBRE_SUCURSAL");
             ViewBag.ID_ROL = new SelectList(db.ROL, "ID_ROL", "NOMBRE_ROL", uSUARIO.ID_ROL);
             return View(uSUARIO);
         }

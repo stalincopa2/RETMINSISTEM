@@ -13,6 +13,7 @@ namespace RETMINSISTEM.Models
         public SUCURSAL()
         {
             BODEGA = new HashSet<BODEGA>();
+            USUARIO = new HashSet<USUARIO>();
             VEHICULO = new HashSet<VEHICULO>();
         }
 
@@ -41,6 +42,9 @@ namespace RETMINSISTEM.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BODEGA> BODEGA { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<USUARIO> USUARIO { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VEHICULO> VEHICULO { get; set; }

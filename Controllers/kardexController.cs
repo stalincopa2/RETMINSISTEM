@@ -41,7 +41,7 @@ namespace RETMINSISTEM.Controllers
         // GET: kardex/Create
         public ActionResult Create()
         {
-           // ViewBag.ID_BODEGA = new SelectList(db.BODEGA, "ID_BODEGA", "COD_BODEGA");
+            ViewBag.ID_BODEGA = new SelectList(db.BODEGA, "ID_BODEGA", "COD_BODEGA");
             ViewBag.ID_PROVEEDOR = new SelectList(db.PROVEEDOR, "ID_PROVEEDOR", "COD_PROOVEDOR");
            // ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO");
             return View();
@@ -52,11 +52,15 @@ namespace RETMINSISTEM.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_KARDEX,ID_PROVEEDOR,ID_BODEGA,ID_USUARIO,COD_KARDEX,ARTICULO,UNIDADES,STOCK_MIN,STOCK_MAX,LOCALIZACION,TIPO_KARDEX")] KARDEX kARDEX, HttpPostedFileBase FOTO_ARTICULO)
+        public ActionResult Create([Bind(Include = "ID_KARDEX,ID_PROVEEDOR,ID_BODEGA,ARTICULO,UNIDADES,STOCK_MIN,STOCK_MAX,LOCALIZACION,TIPO_KARDEX")] KARDEX kARDEX, HttpPostedFileBase FOTO_ARTICULO)
         {
-           
+            
+            int ID_KARDEX_ACTUAL = (db.KARDEX.ToList().Count() + 1);
+
             if (ModelState.IsValid)
             {
+                kARDEX.COD_KARDEX = "K" + ID_KARDEX_ACTUAL.ToString("D9");
+                kARDEX.ID_USUARIO = Convert.ToInt32(Session["ID_USUARIO"].ToString());
                 kARDEX.FOTO_ARTICULO = new byte[FOTO_ARTICULO.ContentLength];
                 FOTO_ARTICULO.InputStream.Read(kARDEX.FOTO_ARTICULO, 0, FOTO_ARTICULO.ContentLength);
                 db.KARDEX.Add(kARDEX);

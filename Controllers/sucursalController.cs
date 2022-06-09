@@ -46,8 +46,11 @@ namespace RETMINSISTEM.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_SUCURSAL,RUC_SUCURSAL,COD_SUCURSAL,NOMBRE_SUCURSAL,DIRECCION,TELEFONO")] SUCURSAL sUCURSAL)
+        public ActionResult Create([Bind(Include = "ID_SUCURSAL,RUC_SUCURSAL,NOMBRE_SUCURSAL,DIRECCION,TELEFONO")] SUCURSAL sUCURSAL)
         {
+            int ID_SUCURSAL_ACTUAL = (db.SUCURSAL.ToList().Count() + 1);
+            sUCURSAL.COD_SUCURSAL = "S" + ID_SUCURSAL_ACTUAL.ToString("D9");
+
             if (ModelState.IsValid)
             {
                 db.SUCURSAL.Add(sUCURSAL);

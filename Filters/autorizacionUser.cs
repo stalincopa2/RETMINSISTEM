@@ -11,14 +11,14 @@ namespace RETMINSISTEM.Filters
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple =true)]
   
-    public class autorizacionUser:AuthorizeAttribute
+    public class AutorizacionUser:AuthorizeAttribute
     {
         private USUARIO objUsuario;
        // private RETMINDBEntities DB = new RETMINDBEntities();
         private int[] ROL;
         private int ID_ROL;
    
-        public autorizacionUser(params int[] ROL)
+        public AutorizacionUser(params int[] ROL)
         {
             this.ROL = ROL;
         }
@@ -30,6 +30,8 @@ namespace RETMINSISTEM.Filters
              try
              {
                 ID_ROL = Convert.ToInt32(HttpContext.Current.Session["User"].ToString());
+      
+               
                 for (int i = 0; i < ROL.Length; i++)
                 {
                    if (ID_ROL != this.ROL[i])
