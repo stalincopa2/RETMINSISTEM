@@ -96,8 +96,22 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FOTO_ARTICULO)
+            @{
+                if (Model.FOTO_ARTICULO != null)
+                {
+                    var base64 = Convert.ToBase64String(Model.FOTO_ARTICULO);
+                    var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                    <img src="@imgsrc" style="max-width:100px; max-height:100px;" />
+                }
+                else
+                {
+                    <img src="~/Sources/productBase.jpg" style="max-width:100px; max-height:100px;" />
+                }
+            }
         </dd>
+
+     
+
 
     </dl>
 </div>

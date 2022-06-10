@@ -118,6 +118,7 @@ namespace RETMINSISTEM.Controllers
 
 
             ViewBag.ID_ROL = new SelectList(db.ROL, "ID_ROL", "NOMBRE_ROL", uSUARIO.ID_ROL);
+            ViewBag.ID_SUCURSAL = new SelectList(db.SUCURSAL, "ID_SUCURSAL", "NOMBRE_SUCURSAL");
             return View(uSUARIO);
         }
 

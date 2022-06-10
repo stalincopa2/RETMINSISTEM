@@ -97,10 +97,12 @@ namespace RETMINSISTEM.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_KARDEX,ID_PROVEEDOR,ID_BODEGA,ID_USUARIO,COD_KARDEX,ARTICULO,UNIDADES,STOCK_MIN,STOCK_MAX,LOCALIZACION,TIPO_KARDEX,FOTO_ARTICULO")] KARDEX kARDEX)
+        public ActionResult Edit([Bind(Include = "ID_KARDEX,ID_PROVEEDOR,ID_BODEGA,ID_USUARIO,COD_KARDEX,ARTICULO,UNIDADES,STOCK_MIN,STOCK_MAX,LOCALIZACION,TIPO_KARDEX")] KARDEX kARDEX, HttpPostedFileBase FOTO_ARTICULO)
         {
             if (ModelState.IsValid)
             {
+                kARDEX.FOTO_ARTICULO = new byte[FOTO_ARTICULO.ContentLength];
+                FOTO_ARTICULO.InputStream.Read(kARDEX.FOTO_ARTICULO, 0, FOTO_ARTICULO.ContentLength);
                 db.Entry(kARDEX).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
