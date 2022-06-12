@@ -21,10 +21,10 @@ namespace RETMINSISTEM.Models
         public int ID_SUCURSAL { get; set; }
 
         [Required]
-        [StringLength(9)]
+        [StringLength(13)]
         public string RUC_SUCURSAL { get; set; }
 
-        [Required]
+       
         [StringLength(10)]
         public string COD_SUCURSAL { get; set; }
 

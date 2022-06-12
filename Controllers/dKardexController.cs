@@ -40,7 +40,7 @@ namespace RETMINSISTEM.Controllers
         public ActionResult Create()
         {
             ViewBag.ID_KARDEX = new SelectList(db.KARDEX, "ID_KARDEX", "COD_KARDEX");
-            ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO");
+           //ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO");
             return View();
         }
 
@@ -49,10 +49,11 @@ namespace RETMINSISTEM.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_DESCRIPCION_KARDEX,ID_KARDEX,ID_USUARIO,FECHA_KARDEX,DESCRIPCION_KARDEX1,TIPO_TRANSACION,VALOR_UNITARIO,CANTIDAD,VALOR,CANTIDAD_SALDO,VALOR_SALDO,CADUCIDAD")] DESCRIPCION_KARDEX dESCRIPCION_KARDEX)
+        public ActionResult Create([Bind(Include = "ID_DESCRIPCION_KARDEX,ID_KARDEX,FECHA_KARDEX,DESCRIPCION_KARDEX1,TIPO_TRANSACION,VALOR_UNITARIO,CANTIDAD,VALOR,CANTIDAD_SALDO,VALOR_SALDO,CADUCIDAD")] DESCRIPCION_KARDEX dESCRIPCION_KARDEX)
         {
             if (ModelState.IsValid)
             {
+                dESCRIPCION_KARDEX.ID_USUARIO = Convert.ToInt32(Session["ID_USUARIO"].ToString());
                 db.DESCRIPCION_KARDEX.Add(dESCRIPCION_KARDEX);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -13,6 +13,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.BODEGA.ID_SUCURSAL)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.BODEGA.COD_BODEGA)
         </th>
         <th>
@@ -51,6 +54,9 @@
 @foreach (var item in Model)
 {
     <tr>
+        <td>
+            @Html.DisplayFor(modeItem=>item.ID_BODEGA)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.BODEGA.COD_BODEGA)
         </td>
