@@ -19,11 +19,11 @@ namespace RETMINSISTEM.Models
         [Key]
         public int ID_USUARIO { get; set; }
 
-        public int? ID_ROL { get; set; }
+        public int ID_ROL { get; set; }
 
-        public int? ID_SUCURSAL { get; set; }
+        public int ID_SUCURSAL { get; set; }
 
-        
+
         [StringLength(10)]
         public string COD_USUARIO { get; set; }
 
@@ -32,7 +32,7 @@ namespace RETMINSISTEM.Models
         public string CEDULA { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(50)]
         public string NOMBRE { get; set; }
 
         [Required]
@@ -43,11 +43,11 @@ namespace RETMINSISTEM.Models
         [Required]
         [StringLength(18)]
         public string USUARIO1 { get; set; }
-        /*
-        [Required]
-        [MaxLength(800)]
+
+        
+        [MaxLength(8000)]
         public byte[] CONTRACENIA { get; set; }
-        */
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DESCRIPCION_KARDEX> DESCRIPCION_KARDEX { get; set; }
 

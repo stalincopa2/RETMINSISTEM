@@ -16,11 +16,11 @@ namespace RETMINSISTEM.Models
         }
 
         [Key]
-        public short ID_BODEGA { get; set; }
+        public int ID_BODEGA { get; set; }
 
         public int ID_SUCURSAL { get; set; }
 
-     
+        
         [StringLength(10)]
         public string COD_BODEGA { get; set; }
 

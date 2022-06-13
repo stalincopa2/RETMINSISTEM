@@ -12,10 +12,11 @@ namespace RETMINSISTEM.Models
         [Key]
         public int ID_VEHICULO { get; set; }
 
-        public int? ID_SUCURSAL { get; set; }
+        public int ID_SUCURSAL { get; set; }
 
+       
         [StringLength(10)]
-        public string COD_VECHICULO { get; set; }
+        public string COD_VEHICULO { get; set; }
 
         [StringLength(50)]
         public string MARCA { get; set; }
@@ -26,6 +27,7 @@ namespace RETMINSISTEM.Models
         [StringLength(25)]
         public string COLOR { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime? FECHA_ADQUISISION { get; set; }
 
         [StringLength(250)]

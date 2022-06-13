@@ -18,15 +18,17 @@ namespace RETMINSISTEM.Models
         [Key]
         public int ID_KARDEX { get; set; }
 
-        public int? ID_PROVEEDOR { get; set; }
-
-        public short? ID_BODEGA { get; set; }
-
-        public int? ID_USUARIO { get; set; }
-
-       
+        
         [StringLength(10)]
         public string COD_KARDEX { get; set; }
+
+        public int ID_PROVEEDOR { get; set; }
+
+        public int ID_BODEGA { get; set; }
+
+        public int ID_USUARIO { get; set; }
+
+        public int ID_TIPO_KARDEX { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -44,8 +46,6 @@ namespace RETMINSISTEM.Models
         [StringLength(100)]
         public string LOCALIZACION { get; set; }
 
-        public short TIPO_KARDEX { get; set; }
-
         [Column(TypeName = "image")]
         public byte[] FOTO_ARTICULO { get; set; }
 
@@ -55,6 +55,8 @@ namespace RETMINSISTEM.Models
         public virtual ICollection<DESCRIPCION_KARDEX> DESCRIPCION_KARDEX { get; set; }
 
         public virtual PROVEEDOR PROVEEDOR { get; set; }
+
+        public virtual TIPO_KARDEX TIPO_KARDEX { get; set; }
 
         public virtual USUARIO USUARIO { get; set; }
     }

@@ -59,7 +59,7 @@ namespace RETMINSISTEM.Controllers
 
             try
             {
-                String conectar = ConfigurationManager.ConnectionStrings["RETMINDBENTITIES"].ConnectionString;
+                String conectar = ConfigurationManager.ConnectionStrings["Model"].ConnectionString;
                 {
 
                     SqlConnection con = new SqlConnection(conectar);
@@ -75,8 +75,8 @@ namespace RETMINSISTEM.Controllers
                                 uSUARIO.COD_USUARIO = "U" + ID_USUARIO_ACTUAL.ToString("D9");// Generador de codigo en base al numero de registro
 
                                 insertUser.CommandType = CommandType.StoredProcedure;
-                                insertUser.Parameters.Add("@ID_ROL", SqlDbType.Int).Value = uSUARIO.ID_ROL;
-                                insertUser.Parameters.Add("@ID_SUCURSAL", SqlDbType.Int).Value = uSUARIO.ID_SUCURSAL;
+                                insertUser.Parameters.Add("@ID_ROL", SqlDbType.SmallInt).Value = uSUARIO.ID_ROL;
+                                insertUser.Parameters.Add("@ID_SUCURSAL", SqlDbType.SmallInt).Value = uSUARIO.ID_SUCURSAL;
                                 insertUser.Parameters.Add("@COD_USUARIO", SqlDbType.VarChar).Value = uSUARIO.COD_USUARIO;
                                 insertUser.Parameters.Add("@CEDULA", SqlDbType.VarChar).Value = uSUARIO.CEDULA;
                                 insertUser.Parameters.Add("@NOMBRE", SqlDbType.VarChar).Value = uSUARIO.NOMBRE;
@@ -100,6 +100,7 @@ namespace RETMINSISTEM.Controllers
 
             }
             ViewBag.ID_ROL = new SelectList(db.ROL, "ID_ROL", "NOMBRE_ROL", uSUARIO.ID_ROL);
+            ViewBag.ID_SUCURSAL = new SelectList(db.SUCURSAL, "ID_SUCURSAL", "NOMBRE_SUCURSAL",uSUARIO.ID_SUCURSAL);
             return View(uSUARIO);
         }
 
@@ -134,7 +135,7 @@ namespace RETMINSISTEM.Controllers
         {
             try
             {
-                String conectar = ConfigurationManager.ConnectionStrings["RETMINDBENTITIES"].ConnectionString;
+                String conectar = ConfigurationManager.ConnectionStrings["Model"].ConnectionString;
                 {
 
                     SqlConnection con = new SqlConnection(conectar);

@@ -73,10 +73,10 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.TIPO_KARDEX, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.ID_TIPO_KARDEX, "ID_TIPO_KARDEX", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.TIPO_KARDEX, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TIPO_KARDEX, "", new { @class = "text-danger" })
+            @Html.DropDownList("ID_TIPO_KARDEX", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ID_TIPO_KARDEX, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -85,7 +85,7 @@
         <div class="col-md-10">
             <input type="file" name="FOTO_ARTICULO" id="FOTO_ARTICULO" class="form-control" onchange="return fileValidation(this)" />
             @Html.ValidationMessageFor(model => model.FOTO_ARTICULO, "", new { @class = "text-danger" })
-            <img src="~/Sources/productBase.jpg"  style="max-width:100px; max-height:100px;" />
+            <img src="~/Sources/productBase.jpg" style="max-width:100px; max-height:100px;" />
         </div>
     </div>
 

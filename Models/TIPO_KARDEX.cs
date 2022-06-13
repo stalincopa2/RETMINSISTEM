@@ -6,23 +6,22 @@ namespace RETMINSISTEM.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("ROL")]
-    public partial class ROL
+    public partial class TIPO_KARDEX
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ROL()
+        public TIPO_KARDEX()
         {
-            USUARIO = new HashSet<USUARIO>();
+            KARDEX = new HashSet<KARDEX>();
         }
 
         [Key]
-        public int ID_ROL { get; set; }
+        public int ID_TIPO_KARDEX { get; set; }
 
         [Required]
-        [StringLength(25)]
-        public string NOMBRE_ROL { get; set; }
+        [StringLength(50)]
+        public string NOMBRE_TIPO { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<USUARIO> USUARIO { get; set; }
+        public virtual ICollection<KARDEX> KARDEX { get; set; }
     }
 }

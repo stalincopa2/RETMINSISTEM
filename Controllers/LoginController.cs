@@ -22,7 +22,7 @@ namespace RETMINSISTEM.Controllers
         public ActionResult Login(string User, string password)
         {
             try {
-                String conectar = ConfigurationManager.ConnectionStrings["RETMINDBENTITIES"].ConnectionString;
+                String conectar = ConfigurationManager.ConnectionStrings["Model"].ConnectionString;
                 {
                     
                     SqlConnection con = new SqlConnection(conectar);
@@ -32,13 +32,13 @@ namespace RETMINSISTEM.Controllers
                     {
                         using (SqlCommand verificacionUser = new SqlCommand("DECRYPTION_PASSWORD", con))
                         {
-                            verificacionUser.CommandType = CommandType.StoredProcedure;
+                            verificacionUser.CommandType = CommandType.StoredProcedure;           
                             verificacionUser.Parameters.Add("@CLAVE", SqlDbType.VarChar).Value = "RETMINSIS";
                             verificacionUser.Parameters.Add("@PASSWORD", SqlDbType.VarChar).Value = password;
                             verificacionUser.Parameters.Add("@USUARIO", SqlDbType.VarChar).Value = User;
                             con.Open();
                             var oUser = verificacionUser.ExecuteReader(CommandBehavior.CloseConnection);
-                            
+                           
                             if (oUser.Read())
                             {
                                 Session["User"] = oUser["ID_ROL"];

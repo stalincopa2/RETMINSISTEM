@@ -48,10 +48,14 @@ namespace RETMINSISTEM.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_VEHICULO,ID_SUCURSAL,COD_VEHICULO,MARCA,MODELO,COLOR,FECHA_ADQUISISION,UBIC_ACTUAL")] VEHICULO vEHICULO)
+        public ActionResult Create([Bind(Include = "ID_VEHICULO,ID_SUCURSAL,MARCA,MODELO,COLOR,FECHA_ADQUISISION,UBIC_ACTUAL")] VEHICULO vEHICULO)
         {
+
+            int ID_VEHICULO_ACTUAL = (db.VEHICULO.ToList().Count() + 1);
+
             if (ModelState.IsValid)
             {
+                vEHICULO.COD_VEHICULO= "K" + ID_VEHICULO_ACTUAL.ToString("D9");
                 db.VEHICULO.Add(vEHICULO);
                 db.SaveChanges();
                 return RedirectToAction("Index");

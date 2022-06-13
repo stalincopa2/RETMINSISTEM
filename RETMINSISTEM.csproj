@@ -164,7 +164,8 @@
     <Compile Include="Models\PROVEEDOR.cs" />
     <Compile Include="Models\ROL.cs" />
     <Compile Include="Models\SUCURSAL.cs" />
-    <Compile Include="Models\sysdiagrams.cs" />
+    <Compile Include="Models\TIPO_KARDEX.cs" />
+    <Compile Include="Models\TRANSACCION.cs" />
     <Compile Include="Models\USUARIO.cs" />
     <Compile Include="Models\VEHICULO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

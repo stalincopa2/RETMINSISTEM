@@ -52,7 +52,8 @@ namespace RETMINSISTEM.Controllers
         {
             ViewBag.ID_BODEGA = new SelectList(db.BODEGA, "ID_BODEGA", "COD_BODEGA");
             ViewBag.ID_PROVEEDOR = new SelectList(db.PROVEEDOR, "ID_PROVEEDOR", "COD_PROOVEDOR");
-           // ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO");
+            ViewBag.ID_TIPO_KARDEX = new SelectList(db.TIPO_KARDEX, "ID_TIPO_KARDEX", "NOMBRE_TIPO");
+            // ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO");
             return View();
         }
 
@@ -61,7 +62,7 @@ namespace RETMINSISTEM.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_KARDEX,ID_PROVEEDOR,ID_BODEGA,ARTICULO,UNIDADES,STOCK_MIN,STOCK_MAX,LOCALIZACION,TIPO_KARDEX")] KARDEX kARDEX, HttpPostedFileBase FOTO_ARTICULO)
+        public ActionResult Create([Bind(Include = "ID_KARDEX,ID_PROVEEDOR,ID_BODEGA,ARTICULO,UNIDADES,STOCK_MIN,STOCK_MAX,LOCALIZACION,ID_TIPO_KARDEX")] KARDEX kARDEX, HttpPostedFileBase FOTO_ARTICULO)
         {
             
             int ID_KARDEX_ACTUAL = (db.KARDEX.ToList().Count() + 1);
@@ -80,6 +81,7 @@ namespace RETMINSISTEM.Controllers
             ViewBag.ID_BODEGA = new SelectList(db.BODEGA, "ID_BODEGA", "COD_BODEGA", kARDEX.ID_BODEGA);
             ViewBag.ID_PROVEEDOR = new SelectList(db.PROVEEDOR, "ID_PROVEEDOR", "COD_PROOVEDOR", kARDEX.ID_PROVEEDOR);
             ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO", kARDEX.ID_USUARIO);
+            ViewBag.ID_TIPO_KARDEX = new SelectList(db.TIPO_KARDEX, "ID_TIPO_KARDEX", "NOMBRE_TIPO", kARDEX.ID_TIPO_KARDEX);
             return View(kARDEX);
         }
 
@@ -98,6 +100,7 @@ namespace RETMINSISTEM.Controllers
             ViewBag.ID_BODEGA = new SelectList(db.BODEGA, "ID_BODEGA", "COD_BODEGA", kARDEX.ID_BODEGA);
             ViewBag.ID_PROVEEDOR = new SelectList(db.PROVEEDOR, "ID_PROVEEDOR", "COD_PROOVEDOR", kARDEX.ID_PROVEEDOR);
             ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO", kARDEX.ID_USUARIO);
+            ViewBag.ID_TIPO_KARDEX = new SelectList(db.TIPO_KARDEX, "ID_TIPO_KARDEX", "NOMBRE_TIPO", kARDEX.ID_TIPO_KARDEX);
             return View(kARDEX);
         }
 
@@ -106,7 +109,7 @@ namespace RETMINSISTEM.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_KARDEX,ID_PROVEEDOR,ID_BODEGA,ID_USUARIO,COD_KARDEX,ARTICULO,UNIDADES,STOCK_MIN,STOCK_MAX,LOCALIZACION,TIPO_KARDEX")] KARDEX kARDEX, HttpPostedFileBase FOTO_ARTICULO)
+        public ActionResult Edit([Bind(Include = "ID_KARDEX,ID_PROVEEDOR,ID_BODEGA,ID_USUARIO,COD_KARDEX,ARTICULO,UNIDADES,STOCK_MIN,STOCK_MAX,LOCALIZACION,ID_TIPO_KARDEX")] KARDEX kARDEX, HttpPostedFileBase FOTO_ARTICULO)
         {
             if (ModelState.IsValid)
             {
@@ -158,3 +161,4 @@ namespace RETMINSISTEM.Controllers
         }
     }
 }
+

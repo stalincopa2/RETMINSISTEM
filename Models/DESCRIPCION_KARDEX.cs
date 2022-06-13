@@ -11,20 +11,19 @@ namespace RETMINSISTEM.Models
         [Key]
         public int ID_DESCRIPCION_KARDEX { get; set; }
 
-        public int? ID_KARDEX { get; set; }
-
         public int? ID_USUARIO { get; set; }
 
+        public int? ID_TRANSACCION { get; set; }
+
+        public int? ID_KARDEX { get; set; }
+
+        [Column(TypeName = "date")]
         public DateTime FECHA_KARDEX { get; set; }
 
         [Column("DESCRIPCION_KARDEX")]
         [Required]
         [StringLength(100)]
         public string DESCRIPCION_KARDEX1 { get; set; }
-
-        [Required]
-        [StringLength(1)]
-        public string TIPO_TRANSACION { get; set; }
 
         public double VALOR_UNITARIO { get; set; }
 
@@ -36,9 +35,12 @@ namespace RETMINSISTEM.Models
 
         public double? VALOR_SALDO { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime? CADUCIDAD { get; set; }
 
         public virtual KARDEX KARDEX { get; set; }
+
+        public virtual TRANSACCION TRANSACCION { get; set; }
 
         public virtual USUARIO USUARIO { get; set; }
     }

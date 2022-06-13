@@ -13,7 +13,7 @@ namespace RETMINSISTEM.Filters
   
     public class AutorizacionUser:AuthorizeAttribute
     {
-        private USUARIO objUsuario;
+        
        // private RETMINDBEntities DB = new RETMINDBEntities();
         private int[] ROL;
         private int ID_ROL;

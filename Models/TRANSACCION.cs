@@ -6,23 +6,23 @@ namespace RETMINSISTEM.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("ROL")]
-    public partial class ROL
+    [Table("TRANSACCION")]
+    public partial class TRANSACCION
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ROL()
+        public TRANSACCION()
         {
-            USUARIO = new HashSet<USUARIO>();
+            DESCRIPCION_KARDEX = new HashSet<DESCRIPCION_KARDEX>();
         }
 
         [Key]
-        public int ID_ROL { get; set; }
+        public int ID_TRANSACCION { get; set; }
 
         [Required]
         [StringLength(25)]
-        public string NOMBRE_ROL { get; set; }
+        public string NOMBRE_TRANSACCION { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<USUARIO> USUARIO { get; set; }
+        public virtual ICollection<DESCRIPCION_KARDEX> DESCRIPCION_KARDEX { get; set; }
     }
 }

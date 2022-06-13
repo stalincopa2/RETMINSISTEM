@@ -40,7 +40,8 @@ namespace RETMINSISTEM.Controllers
         public ActionResult Create()
         {
             ViewBag.ID_KARDEX = new SelectList(db.KARDEX, "ID_KARDEX", "COD_KARDEX");
-           //ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO");
+            ViewBag.ID_TRANSACCION = new SelectList(db.TRANSACCION, "ID_TRANSACCION", "NOMBRE_TRANSACCION");
+            //ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO");
             return View();
         }
 
@@ -49,7 +50,7 @@ namespace RETMINSISTEM.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_DESCRIPCION_KARDEX,ID_KARDEX,FECHA_KARDEX,DESCRIPCION_KARDEX1,TIPO_TRANSACION,VALOR_UNITARIO,CANTIDAD,VALOR,CANTIDAD_SALDO,VALOR_SALDO,CADUCIDAD")] DESCRIPCION_KARDEX dESCRIPCION_KARDEX)
+        public ActionResult Create([Bind(Include = "ID_DESCRIPCION_KARDEX,ID_KARDEX,FECHA_KARDEX,DESCRIPCION_KARDEX1,ID_TRANSACCION,VALOR_UNITARIO,CANTIDAD,VALOR,CANTIDAD_SALDO,VALOR_SALDO,CADUCIDAD")] DESCRIPCION_KARDEX dESCRIPCION_KARDEX)
         {
             if (ModelState.IsValid)
             {
@@ -61,6 +62,7 @@ namespace RETMINSISTEM.Controllers
 
             ViewBag.ID_KARDEX = new SelectList(db.KARDEX, "ID_KARDEX", "COD_KARDEX", dESCRIPCION_KARDEX.ID_KARDEX);
             ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO", dESCRIPCION_KARDEX.ID_USUARIO);
+            ViewBag.ID_TRANSACCION = new SelectList(db.TRANSACCION, "ID_TRANSACCION", "NOMBRE_TRANSACCION", dESCRIPCION_KARDEX.ID_TRANSACCION);
             return View(dESCRIPCION_KARDEX);
         }
 
@@ -78,6 +80,7 @@ namespace RETMINSISTEM.Controllers
             }
             ViewBag.ID_KARDEX = new SelectList(db.KARDEX, "ID_KARDEX", "COD_KARDEX", dESCRIPCION_KARDEX.ID_KARDEX);
             ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO", dESCRIPCION_KARDEX.ID_USUARIO);
+            ViewBag.ID_TRANSACCION = new SelectList(db.TRANSACCION, "ID_TRANSACCION", "NOMBRE_TRANSACCION", dESCRIPCION_KARDEX.ID_TRANSACCION);
             return View(dESCRIPCION_KARDEX);
         }
 
@@ -86,7 +89,7 @@ namespace RETMINSISTEM.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_DESCRIPCION_KARDEX,ID_KARDEX,ID_USUARIO,FECHA_KARDEX,DESCRIPCION_KARDEX1,TIPO_TRANSACION,VALOR_UNITARIO,CANTIDAD,VALOR,CANTIDAD_SALDO,VALOR_SALDO,CADUCIDAD")] DESCRIPCION_KARDEX dESCRIPCION_KARDEX)
+        public ActionResult Edit([Bind(Include = "ID_DESCRIPCION_KARDEX,ID_KARDEX,ID_USUARIO,FECHA_KARDEX,DESCRIPCION_KARDEX1,ID_TRANSACCION,VALOR_UNITARIO,CANTIDAD,VALOR,CANTIDAD_SALDO,VALOR_SALDO,CADUCIDAD")] DESCRIPCION_KARDEX dESCRIPCION_KARDEX)
         {
             if (ModelState.IsValid)
             {
@@ -96,6 +99,7 @@ namespace RETMINSISTEM.Controllers
             }
             ViewBag.ID_KARDEX = new SelectList(db.KARDEX, "ID_KARDEX", "COD_KARDEX", dESCRIPCION_KARDEX.ID_KARDEX);
             ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO", dESCRIPCION_KARDEX.ID_USUARIO);
+            ViewBag.ID_TRANSACCION = new SelectList(db.TRANSACCION, "ID_TRANSACCION", "NOMBRE_TRANSACCION", dESCRIPCION_KARDEX.ID_TRANSACCION);
             return View(dESCRIPCION_KARDEX);
         }
 
