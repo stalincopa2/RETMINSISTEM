@@ -212,7 +212,6 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Home\Inventario.cshtml" />
     <Content Include="Views\error\UnatorizedOperation.cshtml" />
-    <Content Include="Views\Home\usuarios.cshtml" />
     <Content Include="Views\usuario\Create.cshtml" />
     <Content Include="Views\usuario\Delete.cshtml" />
     <Content Include="Views\usuario\Details.cshtml" />

@@ -22,7 +22,7 @@ namespace RETMINSISTEM.Controllers
             //var kARDEX = db.KARDEX.Include(k => k.BODEGA).Include(k => k.PROVEEDOR).Include(k => k.USUARIO);
 
                                
-             int ID_SUCURSAL = Convert.ToInt32( Session["ID_SUCURSAL"].ToString());
+            int ID_SUCURSAL = Convert.ToInt32( Session["ID_SUCURSAL"].ToString());
 
             var kARDEX = from k in db.KARDEX
                          join j in db.USUARIO
@@ -67,12 +67,16 @@ namespace RETMINSISTEM.Controllers
             
             int ID_KARDEX_ACTUAL = (db.KARDEX.ToList().Count() + 1);
 
+            if (FOTO_ARTICULO!= null)
+            {
+                kARDEX.FOTO_ARTICULO = new byte[FOTO_ARTICULO.ContentLength];
+                FOTO_ARTICULO.InputStream.Read(kARDEX.FOTO_ARTICULO, 0, FOTO_ARTICULO.ContentLength);
+            }
+
             if (ModelState.IsValid)
             {
                 kARDEX.COD_KARDEX = "K" + ID_KARDEX_ACTUAL.ToString("D9");
                 kARDEX.ID_USUARIO = Convert.ToInt32(Session["ID_USUARIO"].ToString());
-                kARDEX.FOTO_ARTICULO = new byte[FOTO_ARTICULO.ContentLength];
-                FOTO_ARTICULO.InputStream.Read(kARDEX.FOTO_ARTICULO, 0, FOTO_ARTICULO.ContentLength);
                 db.KARDEX.Add(kARDEX);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -86,7 +90,7 @@ namespace RETMINSISTEM.Controllers
         }
 
         // GET: kardex/Edit/5
-        public ActionResult Edit(short? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -109,12 +113,18 @@ namespace RETMINSISTEM.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_KARDEX,ID_PROVEEDOR,ID_BODEGA,ID_USUARIO,COD_KARDEX,ARTICULO,UNIDADES,STOCK_MIN,STOCK_MAX,LOCALIZACION,ID_TIPO_KARDEX")] KARDEX kARDEX, HttpPostedFileBase FOTO_ARTICULO)
+        public ActionResult Edit([Bind(Include = "ID_KARDEX,ID_PROVEEDOR,ID_BODEGA,ID_USUARIO,COD_KARDEX,ARTICULO,UNIDADES,STOCK_MIN,STOCK_MAX,LOCALIZACION,ID_TIPO_KARDEX,FOTO_ARTICULO")] KARDEX kARDEX, HttpPostedFileBase FOTO_ARTICULO_MODIFIED)
         {
+            
+             
+            if (FOTO_ARTICULO_MODIFIED != null)
+            {
+                kARDEX.FOTO_ARTICULO = new byte[FOTO_ARTICULO_MODIFIED.ContentLength];
+                FOTO_ARTICULO_MODIFIED.InputStream.Read(kARDEX.FOTO_ARTICULO, 0, FOTO_ARTICULO_MODIFIED.ContentLength);
+            }
+
             if (ModelState.IsValid)
             {
-                kARDEX.FOTO_ARTICULO = new byte[FOTO_ARTICULO.ContentLength];
-                FOTO_ARTICULO.InputStream.Read(kARDEX.FOTO_ARTICULO, 0, FOTO_ARTICULO.ContentLength);
                 db.Entry(kARDEX).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -17,7 +17,15 @@ namespace RETMINSISTEM.Controllers
         // GET: dKardex
         public ActionResult Index()
         {
-            var dESCRIPCION_KARDEX = db.DESCRIPCION_KARDEX.Include(d => d.KARDEX).Include(d => d.USUARIO);
+            // var dESCRIPCION_KARDEX = db.DESCRIPCION_KARDEX.Include(d => d.KARDEX).Include(d => d.USUARIO);
+
+            int ID_SUCURSAL = Convert.ToInt32(Session["ID_SUCURSAL"].ToString());
+
+            var dESCRIPCION_KARDEX = from k in db.DESCRIPCION_KARDEX
+                         join j in db.USUARIO
+                         on k.ID_USUARIO equals j.ID_USUARIO
+                         where j.ID_SUCURSAL == ID_SUCURSAL
+                         select k;
             return View(dESCRIPCION_KARDEX.ToList());
         }
 

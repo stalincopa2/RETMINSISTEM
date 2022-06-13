@@ -82,7 +82,7 @@ namespace RETMINSISTEM.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_PROVEEDOR,NOMBRE_PROVEEDOR,APELLIDO_PROVEEDOR,EMPRESA_REPRESENTA,CONTACTO,CORREO")] PROVEEDOR pROVEEDOR)
+        public ActionResult Edit([Bind(Include = "ID_PROVEEDOR,COD_PROOVEDOR,NOMBRE_PROVEEDOR,APELLIDO_PROVEEDOR,EMPRESA_REPRESENTA,CONTACTO,CORREO")] PROVEEDOR pROVEEDOR)
         {
             if (ModelState.IsValid)
             {

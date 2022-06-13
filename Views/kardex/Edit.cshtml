@@ -10,12 +10,14 @@
 @using (Html.BeginForm(Html.BeginForm("Edit", "KARDEX", FormMethod.Post, new { enctype = "multipart/form-data" })))
 {
     @Html.AntiForgeryToken()
-    
+
 <div class="form-horizontal">
     <h4>KARDEX</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.ID_KARDEX)
+
+
 
     <div class="form-group">
         @Html.LabelFor(model => model.ID_PROVEEDOR, "ID_PROVEEDOR", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -90,25 +92,27 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.TIPO_KARDEX, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.ID_TIPO_KARDEX, "ID_TIPO_KARDEX", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.TIPO_KARDEX, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TIPO_KARDEX, "", new { @class = "text-danger" })
+            @Html.DropDownList("ID_TIPO_KARDEX", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ID_TIPO_KARDEX, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.FOTO_ARTICULO)
 
     <div class="form-group">
         @Html.LabelFor(model => model.FOTO_ARTICULO, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <input type="file" name="FOTO_ARTICULO" id="FOTO_ARTICULO" class="form-control" onchange="return fileValidation(this)" />
-            @Html.ValidationMessageFor(model => model.FOTO_ARTICULO, "", new { @class = "text-danger" })
+            <input type="file" name="FOTO_ARTICULO_MODIFIED" id="FOTO_ARTICULO_MODIFIED" class="form-control" onchange="return fileValidation(this)" />
             @{
 
                 if (Model.FOTO_ARTICULO != null)
                 {
                     var base64 = Convert.ToBase64String(Model.FOTO_ARTICULO);
                     var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
-                    <img src="@imgsrc" style="max-width:100px; max-height:100px;" />
+                    <img id="IMG_ARTICULO" src="@imgsrc" style="max-width:100px; max-height:100px;" />
                 }
                 else
                 {
@@ -126,8 +130,8 @@
     </div>
 </div>
 }
-<script src="~/Scripts/inputFileValidation.js"></script>
 
+<script src="~/Scripts/inputFileValidation.js"></script>
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>

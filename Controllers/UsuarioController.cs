@@ -131,7 +131,7 @@ namespace RETMINSISTEM.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_USUARIO,ID_SUCURSAL, ID_ROL,CEDULA,NOMBRE,APELLIDO,USUARIO1")] USUARIO uSUARIO, string password)
+        public ActionResult Edit([Bind(Include = "ID_USUARIO,ID_ROL,ID_SUCURSAL,COD_USUARIO,CEDULA,NOMBRE,APELLIDO,USUARIO1")] USUARIO uSUARIO, string password)
         {
             try
             {
@@ -139,7 +139,6 @@ namespace RETMINSISTEM.Controllers
                 {
 
                     SqlConnection con = new SqlConnection(conectar);
-
 
                     using (con)
                     {
