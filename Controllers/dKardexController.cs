@@ -14,18 +14,23 @@ namespace RETMINSISTEM.Controllers
     {
         private Model db = new Model();
 
-        // GET: dKardex
-        public ActionResult Index()
+        // GET: dKardex/5
+        public ActionResult Index(int? id, string name)
         {
-            // var dESCRIPCION_KARDEX = db.DESCRIPCION_KARDEX.Include(d => d.KARDEX).Include(d => d.USUARIO);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+           var dESCRIPCION_KARDEX = from k in db.DESCRIPCION_KARDEX
+                                     where k.ID_KARDEX == id
+                                     select k;
+            if (dESCRIPCION_KARDEX == null)
+            {
+                return HttpNotFound();
+            }
 
-            int ID_SUCURSAL = Convert.ToInt32(Session["ID_SUCURSAL"].ToString());
-
-            var dESCRIPCION_KARDEX = from k in db.DESCRIPCION_KARDEX
-                         join j in db.USUARIO
-                         on k.ID_USUARIO equals j.ID_USUARIO
-                         where j.ID_SUCURSAL == ID_SUCURSAL
-                         select k;
+            ViewBag.ID_KARDEX = id;
+            ViewBag.ARTICULO = name;
             return View(dESCRIPCION_KARDEX.ToList());
         }
 
@@ -45,11 +50,12 @@ namespace RETMINSISTEM.Controllers
         }
 
         // GET: dKardex/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id, string name)
         {
-            ViewBag.ID_KARDEX = new SelectList(db.KARDEX, "ID_KARDEX", "COD_KARDEX");
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = name, Value = id.ToString()});
+            ViewBag.ID_KARDEX = items;
             ViewBag.ID_TRANSACCION = new SelectList(db.TRANSACCION, "ID_TRANSACCION", "NOMBRE_TRANSACCION");
-            //ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO");
             return View();
         }
 
@@ -69,7 +75,7 @@ namespace RETMINSISTEM.Controllers
             }
 
             ViewBag.ID_KARDEX = new SelectList(db.KARDEX, "ID_KARDEX", "COD_KARDEX", dESCRIPCION_KARDEX.ID_KARDEX);
-            ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO", dESCRIPCION_KARDEX.ID_USUARIO);
+          //  ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO", dESCRIPCION_KARDEX.ID_USUARIO);
             ViewBag.ID_TRANSACCION = new SelectList(db.TRANSACCION, "ID_TRANSACCION", "NOMBRE_TRANSACCION", dESCRIPCION_KARDEX.ID_TRANSACCION);
             return View(dESCRIPCION_KARDEX);
         }
@@ -86,7 +92,7 @@ namespace RETMINSISTEM.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ID_KARDEX = new SelectList(db.KARDEX, "ID_KARDEX", "COD_KARDEX", dESCRIPCION_KARDEX.ID_KARDEX);
+            ViewBag.ID_KARDEX = new SelectList(db.KARDEX, "ID_KARDEX", "ARTICULO", dESCRIPCION_KARDEX.ID_KARDEX);
             ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO", dESCRIPCION_KARDEX.ID_USUARIO);
             ViewBag.ID_TRANSACCION = new SelectList(db.TRANSACCION, "ID_TRANSACCION", "NOMBRE_TRANSACCION", dESCRIPCION_KARDEX.ID_TRANSACCION);
             return View(dESCRIPCION_KARDEX);

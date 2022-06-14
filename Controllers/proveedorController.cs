@@ -71,7 +71,7 @@ namespace RETMINSISTEM.Controllers
             }
             PROVEEDOR pROVEEDOR = db.PROVEEDOR.Find(id);
             if (pROVEEDOR == null)
-            {
+            {       
                 return HttpNotFound();
             }
             return View(pROVEEDOR);

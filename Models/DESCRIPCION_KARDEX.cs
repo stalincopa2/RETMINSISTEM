@@ -25,14 +25,17 @@ namespace RETMINSISTEM.Models
         [StringLength(100)]
         public string DESCRIPCION_KARDEX1 { get; set; }
 
+        [Required]
         public double VALOR_UNITARIO { get; set; }
 
         public double CANTIDAD { get; set; }
 
         public double VALOR { get; set; }
 
+        [Required]
         public double? CANTIDAD_SALDO { get; set; }
 
+        [Required]
         public double? VALOR_SALDO { get; set; }
 
         [Column(TypeName = "date")]
