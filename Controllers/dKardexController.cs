@@ -7,31 +7,30 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using RETMINSISTEM.Models;
+using RETMINSISTEM.Service;
 
 namespace RETMINSISTEM.Controllers
 {
     public class dKardexController : Controller
     {
         private Model db = new Model();
+        private DKardexService DkService = new DKardexService();
 
         // GET: dKardex/5
-        public ActionResult Index(int? id, string name)
+        public ActionResult Index(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-           var dESCRIPCION_KARDEX = from k in db.DESCRIPCION_KARDEX
-                                     where k.ID_KARDEX == id
-                                     select k;
-            if (dESCRIPCION_KARDEX == null)
+            KARDEX KARDEX = db.KARDEX.Find((id));
+
+            if (KARDEX == null)
             {
                 return HttpNotFound();
             }
-
-            ViewBag.ID_KARDEX = id;
-            ViewBag.ARTICULO = name;
-            return View(dESCRIPCION_KARDEX.ToList());
+            Session["ID_KARDEX"] = id;
+            return View(DkService.DkardexListByIdKardex(id).ToList());
         }
 
         // GET: dKardex/Details/5
@@ -50,33 +49,41 @@ namespace RETMINSISTEM.Controllers
         }
 
         // GET: dKardex/Create
-        public ActionResult Create(int? id, string name)
+        public ActionResult Create()
         {
-            List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem { Text = name, Value = id.ToString()});
-            ViewBag.ID_KARDEX = items;
+            int ID_KARDEX = Convert.ToInt32(Session["ID_KARDEX"].ToString());
+            KARDEX KARDEX = db.KARDEX.Find(ID_KARDEX);
+            if (KARDEX == null) {
+                return HttpNotFound();
+            }
+
+            ViewBag.ISEMPY = DkService.kardexListIsEmpty(ID_KARDEX); 
+            ViewBag.ID_KARDEX = ID_KARDEX;
+            ViewBag.ARTICULO = KARDEX.ARTICULO;
             ViewBag.ID_TRANSACCION = new SelectList(db.TRANSACCION, "ID_TRANSACCION", "NOMBRE_TRANSACCION");
             return View();
         }
 
-        // POST: dKardex/Create
+        // POST: dKardex/CreateS
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID_DESCRIPCION_KARDEX,ID_KARDEX,FECHA_KARDEX,DESCRIPCION_KARDEX1,ID_TRANSACCION,VALOR_UNITARIO,CANTIDAD,VALOR,CANTIDAD_SALDO,VALOR_SALDO,CADUCIDAD")] DESCRIPCION_KARDEX dESCRIPCION_KARDEX)
-        {
+        { 
             if (ModelState.IsValid)
             {
                 dESCRIPCION_KARDEX.ID_USUARIO = Convert.ToInt32(Session["ID_USUARIO"].ToString());
                 db.DESCRIPCION_KARDEX.Add(dESCRIPCION_KARDEX);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id= dESCRIPCION_KARDEX.ID_KARDEX});
             }
 
-            ViewBag.ID_KARDEX = new SelectList(db.KARDEX, "ID_KARDEX", "COD_KARDEX", dESCRIPCION_KARDEX.ID_KARDEX);
-          //  ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO", dESCRIPCION_KARDEX.ID_USUARIO);
-            ViewBag.ID_TRANSACCION = new SelectList(db.TRANSACCION, "ID_TRANSACCION", "NOMBRE_TRANSACCION", dESCRIPCION_KARDEX.ID_TRANSACCION);
+            int ID_KARDEX = Convert.ToInt32(Session["ID_KARDEX"].ToString());
+            KARDEX KARDEX = db.KARDEX.Find(ID_KARDEX);
+            ViewBag.ID_KARDEX = ID_KARDEX;
+            ViewBag.ARTICULO = KARDEX.ARTICULO;
+            ViewBag.ID_TRANSACCION = new SelectList(db.TRANSACCION, "ID_TRANSACCION", "NOMBRE_TRANSACCION");
             return View(dESCRIPCION_KARDEX);
         }
 
@@ -88,12 +95,17 @@ namespace RETMINSISTEM.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             DESCRIPCION_KARDEX dESCRIPCION_KARDEX = db.DESCRIPCION_KARDEX.Find(id);
+
             if (dESCRIPCION_KARDEX == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ID_KARDEX = new SelectList(db.KARDEX, "ID_KARDEX", "ARTICULO", dESCRIPCION_KARDEX.ID_KARDEX);
-            ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO", dESCRIPCION_KARDEX.ID_USUARIO);
+
+            int ID_KARDEX = Convert.ToInt32(Session["ID_KARDEX"].ToString());
+            KARDEX KARDEX = db.KARDEX.Find(ID_KARDEX);
+            ViewBag.ID_KARDEX = ID_KARDEX;
+            ViewBag.ARTICULO = KARDEX.ARTICULO;
+
             ViewBag.ID_TRANSACCION = new SelectList(db.TRANSACCION, "ID_TRANSACCION", "NOMBRE_TRANSACCION", dESCRIPCION_KARDEX.ID_TRANSACCION);
             return View(dESCRIPCION_KARDEX);
         }
@@ -109,10 +121,14 @@ namespace RETMINSISTEM.Controllers
             {
                 db.Entry(dESCRIPCION_KARDEX).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index",new { id= dESCRIPCION_KARDEX.ID_KARDEX});
             }
-            ViewBag.ID_KARDEX = new SelectList(db.KARDEX, "ID_KARDEX", "COD_KARDEX", dESCRIPCION_KARDEX.ID_KARDEX);
-            ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO", dESCRIPCION_KARDEX.ID_USUARIO);
+
+            int ID_KARDEX = Convert.ToInt32(Session["ID_KARDEX"].ToString());
+            KARDEX KARDEX = db.KARDEX.Find(ID_KARDEX);
+            ViewBag.ID_KARDEX = ID_KARDEX;
+            ViewBag.ARTICULO = KARDEX.ARTICULO;
+
             ViewBag.ID_TRANSACCION = new SelectList(db.TRANSACCION, "ID_TRANSACCION", "NOMBRE_TRANSACCION", dESCRIPCION_KARDEX.ID_TRANSACCION);
             return View(dESCRIPCION_KARDEX);
         }
