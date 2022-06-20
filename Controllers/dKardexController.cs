@@ -69,8 +69,11 @@ namespace RETMINSISTEM.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID_DESCRIPCION_KARDEX,ID_KARDEX,FECHA_KARDEX,DESCRIPCION_KARDEX1,ID_TRANSACCION,VALOR_UNITARIO,CANTIDAD,VALOR,CANTIDAD_SALDO,VALOR_SALDO,CADUCIDAD")] DESCRIPCION_KARDEX dESCRIPCION_KARDEX)
-        { 
+        public ActionResult Create([Bind(Include = "ID_DESCRIPCION_KARDEX,ID_KARDEX,FECHA_KARDEX,DESCRIPCION_KARDEX1,ID_TRANSACCION,VALOR_UNITARIO,CANTIDAD,VALOR,CANTIDAD_SALDO,CADUCIDAD,CANTIDAD_DISPONIBLE")] DESCRIPCION_KARDEX dESCRIPCION_KARDEX)
+        {
+
+            dESCRIPCION_KARDEX = DkService.calcularValoresDKardex(dESCRIPCION_KARDEX); // Metodo que calcula los valores faltantes en el detalle
+
             if (ModelState.IsValid)
             {
                 dESCRIPCION_KARDEX.ID_USUARIO = Convert.ToInt32(Session["ID_USUARIO"].ToString());
@@ -81,6 +84,8 @@ namespace RETMINSISTEM.Controllers
 
             int ID_KARDEX = Convert.ToInt32(Session["ID_KARDEX"].ToString());
             KARDEX KARDEX = db.KARDEX.Find(ID_KARDEX);
+
+            ViewBag.ISEMPY = DkService.kardexListIsEmpty(ID_KARDEX);
             ViewBag.ID_KARDEX = ID_KARDEX;
             ViewBag.ARTICULO = KARDEX.ARTICULO;
             ViewBag.ID_TRANSACCION = new SelectList(db.TRANSACCION, "ID_TRANSACCION", "NOMBRE_TRANSACCION");
@@ -117,13 +122,16 @@ namespace RETMINSISTEM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID_DESCRIPCION_KARDEX,ID_KARDEX,ID_USUARIO,FECHA_KARDEX,DESCRIPCION_KARDEX1,ID_TRANSACCION,VALOR_UNITARIO,CANTIDAD,VALOR,CANTIDAD_SALDO,VALOR_SALDO,CADUCIDAD")] DESCRIPCION_KARDEX dESCRIPCION_KARDEX)
         {
+
+            dESCRIPCION_KARDEX =  DkService.modificarRegistros(dESCRIPCION_KARDEX); // calcula los registros faltantes. 
+            
             if (ModelState.IsValid)
             {
                 db.Entry(dESCRIPCION_KARDEX).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index",new { id= dESCRIPCION_KARDEX.ID_KARDEX});
             }
-
+           
             int ID_KARDEX = Convert.ToInt32(Session["ID_KARDEX"].ToString());
             KARDEX KARDEX = db.KARDEX.Find(ID_KARDEX);
             ViewBag.ID_KARDEX = ID_KARDEX;

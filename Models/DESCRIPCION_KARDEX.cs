@@ -18,6 +18,7 @@ namespace RETMINSISTEM.Models
         public int? ID_KARDEX { get; set; }
 
         [Column(TypeName = "date")]
+        [DataType(DataType.Date)]
         public DateTime FECHA_KARDEX { get; set; }
 
         [Column("DESCRIPCION_KARDEX")]
@@ -32,13 +33,16 @@ namespace RETMINSISTEM.Models
 
         public double VALOR { get; set; }
 
-        [Required]
+        
         public double? CANTIDAD_SALDO { get; set; }
 
-        [Required]
         public double? VALOR_SALDO { get; set; }
 
+        
+        public double? CANTIDAD_DISPONIBLE { get; set; }
+
         [Column(TypeName = "date")]
+        [DataType(DataType.Date)]
         public DateTime? CADUCIDAD { get; set; }
 
         public virtual KARDEX KARDEX { get; set; }

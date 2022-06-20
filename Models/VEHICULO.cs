@@ -28,6 +28,7 @@ namespace RETMINSISTEM.Models
         public string COLOR { get; set; }
 
         [Column(TypeName = "date")]
+        [DataType(DataType.Date)]
         public DateTime? FECHA_ADQUISISION { get; set; }
 
         [StringLength(250)]

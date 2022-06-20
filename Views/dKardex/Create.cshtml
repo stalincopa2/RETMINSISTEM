@@ -5,12 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
 <div class="form-horizontal">
     <h4>DESCRIPCION_KARDEX</h4>
     <hr />
@@ -25,10 +26,8 @@
         </div>
     </div>
 
-
-
     <div class="form-group">
-        @Html.LabelFor(model => model.FECHA_KARDEX, htmlAttributes: new { @class = "control-label col-md-2" })
+        <label for="FECHA_KARDEX" class="control-label col-md-2">FECHA</label>
         <div class="col-md-10">
             @Html.EditorFor(model => model.FECHA_KARDEX, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.FECHA_KARDEX, "", new { @class = "text-danger" })
@@ -36,19 +35,9 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.DESCRIPCION_KARDEX1, htmlAttributes: new { @class = "control-label col-md-2" })
+        <label for="VALOR_UNITARIO" class="control-label col-md-2">COSTO UNITARIO</label>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.DESCRIPCION_KARDEX1, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.DESCRIPCION_KARDEX1, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.VALOR_UNITARIO, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.VALOR_UNITARIO, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.VALOR_UNITARIO, new { htmlAttributes = new { @class = "form-control", @step = "0.01" } })
             @Html.ValidationMessageFor(model => model.VALOR_UNITARIO, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -56,7 +45,7 @@
         {
 
             <div class="form-group">
-                @Html.LabelFor(model => model.CANTIDAD, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label for="CANTIDAD" class="control-label col-md-2">CANTIDAD</label>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.CANTIDAD, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.CANTIDAD, "", new { @class = "text-danger" })
@@ -64,14 +53,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.VALOR, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.VALOR, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.VALOR, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.ID_TRANSACCION, "ID_TRANSACCION", htmlAttributes: new { @class = "control-label col-md-2" })
+                <label for="ID_TRANSACCION" class="control-label col-md-2">TIPO DE TRANSACCIÓN</label>
                 <div class="col-md-10">
                     @Html.DropDownList("ID_TRANSACCION", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.ID_TRANSACCION, "", new { @class = "text-danger" })
@@ -79,29 +61,30 @@
             </div>
 
         }
+        else
+        {
+            <div class="form-group">
+                <label for="CANTIDAD_SALDO" class="control-label col-md-2">CANTIDAD TOTAL</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CANTIDAD_SALDO, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CANTIDAD_SALDO, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
     }
-
     <div class="form-group">
-        @Html.LabelFor(model => model.CANTIDAD_SALDO, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.CANTIDAD_SALDO, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.CANTIDAD_SALDO, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.VALOR_SALDO, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.VALOR_SALDO, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.VALOR_SALDO, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.CADUCIDAD, htmlAttributes: new { @class = "control-label col-md-2" })
+        <label for="CADUCIDAD" class="control-label col-md-2">FECHA DE CADUCIDAD</label>
         <div class="col-md-10">
             @Html.EditorFor(model => model.CADUCIDAD, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.CADUCIDAD, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="DESCIPCION_KARDEX1" class="control-label col-md-2">DESCRIPCIÓN</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DESCRIPCION_KARDEX1, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DESCRIPCION_KARDEX1, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -111,8 +94,10 @@
         </div>
     </div>
 </div>
-    }
+}
 
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
