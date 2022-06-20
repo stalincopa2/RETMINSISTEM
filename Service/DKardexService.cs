@@ -49,6 +49,8 @@ namespace RETMINSISTEM.Service
                     case 2://venta
                         if (actualizarUnidadesDisponibles(dESCRIPCION_KARDEX.CANTIDAD, dESCRIPCION_KARDEX.ID_KARDEX ?? default(int)))
                             dESCRIPCION_KARDEX.CANTIDAD_SALDO = lastModifiedValue;
+                        else
+                            dESCRIPCION_KARDEX.CANTIDAD_SALDO = null ;
                     break;
                 }
             }
@@ -80,6 +82,14 @@ namespace RETMINSISTEM.Service
             {
                 return false; // significa que no hay registros con unidades disponibles disponibles            
             }
+            Double? cantidadTotal=0;
+
+            foreach (var item1 in dESCRIPCION_KARDEX) { 
+                 cantidadTotal+=item1.CANTIDAD_DISPONIBLE; // canculando el stock total disponible 
+            }
+            if ((cantidadTotal - cantidadVenta) < 0) {
+                return false;// significa que la cantidad no abastece para realizar la venta
+            }
 
             int i = 0;
             Double? auxTotal;// variable que calcula el valor total al restarlo por la cantidad de venta en cada registro
@@ -99,8 +109,8 @@ namespace RETMINSISTEM.Service
                     return true;
                    }
                 CantDisponible.updateCantDisponible(item);
-                    i++;
-                }                   
+            } 
+            
             return false;// retorna falso por defecto, signficai que
                  // si no es de tipo venta devuleve la misma cantidad de Saldo, la cantidad de saldo es la misma ya que esta tiene que quedar registrada.
         }
@@ -111,11 +121,14 @@ namespace RETMINSISTEM.Service
             var kardexesActuales = (from k in db.DESCRIPCION_KARDEX
                                    where k.ID_KARDEX == ID_KARDEX 
                                    select k).OrderByDescending(K=> K.ID_DESCRIPCION_KARDEX) ;
+            kardexesActuales.ToList();
             
             foreach (var item in kardexesActuales) {
                 if (item.ID_DESCRIPCION_KARDEX == ID_DESCRIPCION)
                 {
                     cantidadAux = item.CANTIDAD;
+                    if (item.ID_TRANSACCION == 1)// si el ultimo registro fue un compra, no es nesesario actualizar los valores 
+                        break;
                 }
                 else if (item.ID_TRANSACCION == 1) {
 
@@ -141,6 +154,7 @@ namespace RETMINSISTEM.Service
 
             if (dESCRIPCION_KARDEX.ID_TRANSACCION != null)//Significa que ya hay registros previos 
             {
+
                 restaurarUnidadesDisponibles(dESCRIPCION_KARDEX.ID_DESCRIPCION_KARDEX, dESCRIPCION_KARDEX.ID_KARDEX ?? default(int)); // primero restaura los valores anteriores, con el algoritmo respectivo
 
                 dESCRIPCION_KARDEX.VALOR = dESCRIPCION_KARDEX.VALOR_UNITARIO * dESCRIPCION_KARDEX.CANTIDAD;
@@ -154,6 +168,8 @@ namespace RETMINSISTEM.Service
                     case 2://venta
                         if (actualizarUnidadesDisponibles(dESCRIPCION_KARDEX.CANTIDAD, dESCRIPCION_KARDEX.ID_KARDEX ?? default(int))) // se vuleven a calcular los valores, despues de que ya se restauraron los anteriores.
                             dESCRIPCION_KARDEX.CANTIDAD_SALDO = lastModifiedValue;
+                        else
+                            dESCRIPCION_KARDEX.CANTIDAD_SALDO = null;
                         break;
                 }
             }

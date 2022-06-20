@@ -56,7 +56,7 @@ namespace RETMINSISTEM.Controllers
             if (KARDEX == null) {
                 return HttpNotFound();
             }
-
+            ViewBag.sotckInsuficiente = false;
             ViewBag.ISEMPY = DkService.kardexListIsEmpty(ID_KARDEX); 
             ViewBag.ID_KARDEX = ID_KARDEX;
             ViewBag.ARTICULO = KARDEX.ARTICULO;
@@ -74,13 +74,15 @@ namespace RETMINSISTEM.Controllers
 
             dESCRIPCION_KARDEX = DkService.calcularValoresDKardex(dESCRIPCION_KARDEX); // Metodo que calcula los valores faltantes en el detalle
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && dESCRIPCION_KARDEX.CANTIDAD_DISPONIBLE != null)
             {
                 dESCRIPCION_KARDEX.ID_USUARIO = Convert.ToInt32(Session["ID_USUARIO"].ToString());
                 db.DESCRIPCION_KARDEX.Add(dESCRIPCION_KARDEX);
                 db.SaveChanges();
                 return RedirectToAction("Index", new { id= dESCRIPCION_KARDEX.ID_KARDEX});
             }
+            if (dESCRIPCION_KARDEX.CANTIDAD_DISPONIBLE == null)
+                ViewBag.sotckInsuficiente = true;
 
             int ID_KARDEX = Convert.ToInt32(Session["ID_KARDEX"].ToString());
             KARDEX KARDEX = db.KARDEX.Find(ID_KARDEX);
@@ -125,13 +127,13 @@ namespace RETMINSISTEM.Controllers
 
             dESCRIPCION_KARDEX =  DkService.modificarRegistros(dESCRIPCION_KARDEX); // calcula los registros faltantes. 
             
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && dESCRIPCION_KARDEX.CANTIDAD_SALDO!=null)
             {
                 db.Entry(dESCRIPCION_KARDEX).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index",new { id= dESCRIPCION_KARDEX.ID_KARDEX});
             }
-           
+
             int ID_KARDEX = Convert.ToInt32(Session["ID_KARDEX"].ToString());
             KARDEX KARDEX = db.KARDEX.Find(ID_KARDEX);
             ViewBag.ID_KARDEX = ID_KARDEX;

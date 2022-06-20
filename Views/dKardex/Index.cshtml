@@ -13,37 +13,34 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.KARDEX.COD_KARDEX)
+            USUARIO
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.USUARIO.COD_USUARIO)
+            FECHA
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FECHA_KARDEX)
+            DESCRIPCION
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DESCRIPCION_KARDEX1)
+            TIPO DE TRANSACCIÓN
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ID_TRANSACCION)
+            C. UNITARIO
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.VALOR_UNITARIO)
+           CANTIDAD
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CANTIDAD)
+           VALOR TOTAL
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.VALOR)
+           CANTITAD SALDO
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CANTIDAD_SALDO)
+           VALOR SALDO
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.VALOR_SALDO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CADUCIDAD)
+            FECHA CADUCIDAD
         </th>
         <th>CANTIDAD DISPONIBLE</th>
         <th></th>
@@ -52,9 +49,6 @@
 @foreach (var item in Model)
 {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.KARDEX.COD_KARDEX)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.USUARIO.COD_USUARIO)
         </td>
@@ -106,7 +100,7 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.ID_DESCRIPCION_KARDEX }) |
             @Html.ActionLink("Details", "Details", new { id = item.ID_DESCRIPCION_KARDEX }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ID_DESCRIPCION_KARDEX })
+
         </td>
     </tr>
 }
