@@ -47,7 +47,7 @@ namespace RETMINSISTEM.Service
                         dESCRIPCION_KARDEX.CANTIDAD_SALDO = dESCRIPCION_KARDEX.CANTIDAD_DISPONIBLE = dESCRIPCION_KARDEX.CANTIDAD; 
                     break;
                     case 2://venta
-                        if (actualizarUnidadesDisponibles(dESCRIPCION_KARDEX.CANTIDAD, dESCRIPCION_KARDEX.ID_KARDEX ?? default(int)))
+                        if (actualizarUnidadesDisponibles(dESCRIPCION_KARDEX.CANTIDAD, dESCRIPCION_KARDEX.ID_KARDEX ?? default(int), false))
                             dESCRIPCION_KARDEX.CANTIDAD_SALDO = lastModifiedValue;
                         else
                             dESCRIPCION_KARDEX.CANTIDAD_SALDO = null ;
@@ -69,14 +69,14 @@ namespace RETMINSISTEM.Service
          Si se tratara de una compra, ese valor se inserta en una nueva fila, mas no se actualiza como el caso de las ventas
         Esto es debido las reglas de metodo PEPS(FIFO) del Kardex*/
 
-        public bool actualizarUnidadesDisponibles(Double cantidadVenta, int ID_KARDEX)
+        public bool actualizarUnidadesDisponibles(Double cantidadVenta, int ID_KARDEX, bool modificacion)
         {
             lastModifiedValue = 0;
             var dESCRIPCION_KARDEX = from dk in db.DESCRIPCION_KARDEX
                                      where dk.ID_KARDEX == ID_KARDEX && dk.CANTIDAD_DISPONIBLE > 0 && dk.ID_TRANSACCION ==1
                                      orderby dk.ID_DESCRIPCION_KARDEX
                                      select dk; // selecciona todos los registros que tengan unidades disponibles de una Kardex
-
+            
             int dimensionConsulta = dESCRIPCION_KARDEX.ToList().Count();
             if (dimensionConsulta == 0)
             {
@@ -84,14 +84,30 @@ namespace RETMINSISTEM.Service
             }
             Double? cantidadTotal=0;
 
-            foreach (var item1 in dESCRIPCION_KARDEX) { 
-                 cantidadTotal+=item1.CANTIDAD_DISPONIBLE; // canculando el stock total disponible 
-            }
+            if (modificacion) // si es una modificacon, no toma en cuenta la cantidad disponible del ultimo elemnto 
+                {
+                    foreach (var item1 in dESCRIPCION_KARDEX)
+                    {
+                    if (dimensionConsulta == 2)
+                        cantidadTotal += item1.CANTIDAD_DISPONIBLE; // canculando el stock total disponible 
+                    else
+                        break;
+                        dimensionConsulta--;
+                    }
+                }
+
+            else
+                foreach (var item1 in dESCRIPCION_KARDEX)
+                {
+                    cantidadTotal += item1.CANTIDAD_DISPONIBLE; // canculando el stock total disponible 
+                }
+
+
             if ((cantidadTotal - cantidadVenta) < 0) {
                 return false;// significa que la cantidad no abastece para realizar la venta
             }
 
-            int i = 0;
+           
             Double? auxTotal;// variable que calcula el valor total al restarlo por la cantidad de venta en cada registro
 
             foreach (var item in dESCRIPCION_KARDEX) {
@@ -121,7 +137,7 @@ namespace RETMINSISTEM.Service
             var kardexesActuales = (from k in db.DESCRIPCION_KARDEX
                                    where k.ID_KARDEX == ID_KARDEX 
                                    select k).OrderByDescending(K=> K.ID_DESCRIPCION_KARDEX) ;
-            kardexesActuales.ToList();
+         
             
             foreach (var item in kardexesActuales) {
                 if (item.ID_DESCRIPCION_KARDEX == ID_DESCRIPCION)
@@ -166,7 +182,8 @@ namespace RETMINSISTEM.Service
                         dESCRIPCION_KARDEX.CANTIDAD_SALDO = dESCRIPCION_KARDEX.CANTIDAD_DISPONIBLE;
                         break;
                     case 2://venta
-                        if (actualizarUnidadesDisponibles(dESCRIPCION_KARDEX.CANTIDAD, dESCRIPCION_KARDEX.ID_KARDEX ?? default(int))) // se vuleven a calcular los valores, despues de que ya se restauraron los anteriores.
+
+                        if (actualizarUnidadesDisponibles(dESCRIPCION_KARDEX.CANTIDAD, dESCRIPCION_KARDEX.ID_KARDEX ?? default(int), true)) // se vuleven a calcular los valores, despues de que ya se restauraron los anteriores.
                             dESCRIPCION_KARDEX.CANTIDAD_SALDO = lastModifiedValue;
                         else
                             dESCRIPCION_KARDEX.CANTIDAD_SALDO = null;
