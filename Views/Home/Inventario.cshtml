@@ -1,8 +1,57 @@
 ﻿
+@model List<RETMINSISTEM.Models.INVENTARIO>
 @{
     ViewBag.Title = "Inventario";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <h2>Inventario</h2>
+<table class="table">
+    <tr>
+        <th>
+            CODIGO
+        </th>
+        <th>
+            ARTICULO
+        </th>
+        <th>
+            UNIDADES
+        </th>
+        <th>
+           BODEGA
+        </th>
+        <th>
+           STOCK
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.COD_KARDEX)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ARTICULO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UNIDADES)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID_BODEGA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.STOCK)
+            </td>
+
+            <td>
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+
 

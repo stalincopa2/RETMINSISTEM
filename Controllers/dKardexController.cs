@@ -71,10 +71,10 @@ namespace RETMINSISTEM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID_DESCRIPCION_KARDEX,ID_KARDEX,FECHA_KARDEX,DESCRIPCION_KARDEX1,ID_TRANSACCION,VALOR_UNITARIO,CANTIDAD,VALOR,CANTIDAD_SALDO,CADUCIDAD,CANTIDAD_DISPONIBLE")] DESCRIPCION_KARDEX dESCRIPCION_KARDEX)
         {
-
+            ViewBag.sotckInsuficiente = false;
             dESCRIPCION_KARDEX = DkService.calcularValoresDKardex(dESCRIPCION_KARDEX); // Metodo que calcula los valores faltantes en el detalle
 
-            if (ModelState.IsValid && dESCRIPCION_KARDEX.CANTIDAD_DISPONIBLE != null)
+            if (ModelState.IsValid && dESCRIPCION_KARDEX.CANTIDAD_SALDO != null)
             {
                 dESCRIPCION_KARDEX.ID_USUARIO = Convert.ToInt32(Session["ID_USUARIO"].ToString());
                 db.DESCRIPCION_KARDEX.Add(dESCRIPCION_KARDEX);
@@ -86,7 +86,7 @@ namespace RETMINSISTEM.Controllers
 
             int ID_KARDEX = Convert.ToInt32(Session["ID_KARDEX"].ToString());
             KARDEX KARDEX = db.KARDEX.Find(ID_KARDEX);
-
+            
             ViewBag.ISEMPY = DkService.kardexListIsEmpty(ID_KARDEX);
             ViewBag.ID_KARDEX = ID_KARDEX;
             ViewBag.ARTICULO = KARDEX.ARTICULO;

@@ -159,6 +159,7 @@
     </Compile>
     <Compile Include="Models\BODEGA.cs" />
     <Compile Include="Models\DESCRIPCION_KARDEX.cs" />
+    <Compile Include="Models\INVENTARIO.cs" />
     <Compile Include="Models\KARDEX.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Models\PROVEEDOR.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\CantDisponible.cs" />
     <Compile Include="Service\DKardexService.cs" />
+    <Compile Include="Service\InventarioService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -212,7 +214,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LayoudLogin.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
-    <Content Include="Views\Home\Inventario.cshtml" />
     <Content Include="Views\error\UnatorizedOperation.cshtml" />
     <Content Include="Views\usuario\Create.cshtml" />
     <Content Include="Views\usuario\Delete.cshtml" />
@@ -251,6 +252,7 @@
     <Content Include="Views\sucursal\Edit.cshtml" />
     <Content Include="Views\sucursal\Index.cshtml" />
     <Content Include="Views\Home\Movimiento.cshtml" />
+    <Content Include="Views\Home\Inventario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

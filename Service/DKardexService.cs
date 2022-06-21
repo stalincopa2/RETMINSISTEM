@@ -73,15 +73,11 @@ namespace RETMINSISTEM.Service
         {
             lastModifiedValue = 0;
             var dESCRIPCION_KARDEX = from dk in db.DESCRIPCION_KARDEX
-                                     where dk.ID_KARDEX == ID_KARDEX && dk.CANTIDAD_DISPONIBLE > 0 && dk.ID_TRANSACCION ==1
+                                     where (dk.ID_KARDEX == ID_KARDEX && dk.CANTIDAD_DISPONIBLE > 0) && (dk.ID_TRANSACCION == 1 || dk.ID_TRANSACCION == null)
                                      orderby dk.ID_DESCRIPCION_KARDEX
                                      select dk; // selecciona todos los registros que tengan unidades disponibles de una Kardex
             
-            int dimensionConsulta = dESCRIPCION_KARDEX.ToList().Count();
-            if (dimensionConsulta == 0)
-            {
-                return false; // significa que no hay registros con unidades disponibles disponibles            
-            }
+               int dimensionConsulta = dESCRIPCION_KARDEX.ToList().Count();
             Double? cantidadTotal=0;
 
             if (modificacion) // si es una modificacon, no toma en cuenta la cantidad disponible del ultimo elemnto 
@@ -102,7 +98,7 @@ namespace RETMINSISTEM.Service
                     cantidadTotal += item1.CANTIDAD_DISPONIBLE; // canculando el stock total disponible 
                 }
 
-
+                   
             if ((cantidadTotal - cantidadVenta) < 0) {
                 return false;// significa que la cantidad no abastece para realizar la venta
             }

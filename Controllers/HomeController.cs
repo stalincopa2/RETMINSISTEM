@@ -1,5 +1,6 @@
 ﻿using RETMINSISTEM.Filters;
 using RETMINSISTEM.Models;
+using RETMINSISTEM.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace RETMINSISTEM.Controllers
     public class HomeController : Controller
     {
         private Model db = new Model();
-
+     
         // GET: kardex
 
 
@@ -32,9 +33,11 @@ namespace RETMINSISTEM.Controllers
 
         public ActionResult Inventario()
         {
+            InventarioService objInventario = new InventarioService();
             ViewBag.Message = "Ahora estas en el inventario.";
+            List<INVENTARIO> inventarioList = objInventario.inventarioList();
 
-            return View();
+            return View(inventarioList);
         }
         public ActionResult Movimiento()
         {
