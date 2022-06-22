@@ -17,21 +17,55 @@ namespace RETMINSISTEM.Controllers
         private DKardexService DkService = new DKardexService();
 
         // GET: dKardex/5
-        public ActionResult Index(int? id)
+        public ActionResult Index(int? id, int pg=1)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            KARDEX KARDEX = db.KARDEX.Find((id));
-
-            if (KARDEX == null)
-            {
-                return HttpNotFound();
-            }
+            
             Session["ID_KARDEX"] = id;
-            return View(DkService.DkardexListByIdKardex(id).ToList());
+            var dKardex = DkService.DkardexListByIdKardex(id).ToList();
+
+            const int pageSize = 10;
+            if (pg < 1)
+                pg = 1;
+
+            int dKardexCount = dKardex.Count();
+            var pagina = new PAGINA(dKardexCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+            var data = dKardex.Skip(recSkip).Take(pagina.PageSize).ToList();
+            this.ViewBag.pagina = pagina;
+            return View(data);
+         }
+
+        [HttpPost]
+        public ActionResult Index(int? id,DateTime fecha, int pg = 1) {
+            if (id == null || fecha==null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Session["ID_KARDEX"] = id;
+            var dKardex = db.DESCRIPCION_KARDEX.Where(dk => dk.FECHA_KARDEX.Equals(fecha)).ToList();
+
+            const int pageSize = 10;
+            if (pg < 1)
+                pg = 1;
+            int dKardexCount = dKardex.Count();
+
+
+            var pagina = new PAGINA(dKardexCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+            var data = dKardex.Skip(recSkip).Take(pagina.PageSize).ToList();
+            this.ViewBag.pagina = pagina;
+
+
+            return View(data);
         }
+
+
+
 
         // GET: dKardex/Details/5
         public ActionResult Details(int? id)
@@ -56,11 +90,23 @@ namespace RETMINSISTEM.Controllers
             if (KARDEX == null) {
                 return HttpNotFound();
             }
+
+            List<SelectListItem> tipoTransaccion = new List<SelectListItem>();
+
+            var tKardex = from tT in db.TRANSACCION
+                          where tT.NOMBRE_TRANSACCION != "ANULADA"
+                          select tT;
+            foreach (var item in tKardex)
+            {
+                tipoTransaccion.Add(new SelectListItem { Text = item.NOMBRE_TRANSACCION, Value = item.ID_TRANSACCION.ToString() });
+            }
+
+
             ViewBag.sotckInsuficiente = false;
             ViewBag.ISEMPY = DkService.kardexListIsEmpty(ID_KARDEX); 
             ViewBag.ID_KARDEX = ID_KARDEX;
             ViewBag.ARTICULO = KARDEX.ARTICULO;
-            ViewBag.ID_TRANSACCION = new SelectList(db.TRANSACCION, "ID_TRANSACCION", "NOMBRE_TRANSACCION");
+            ViewBag.ID_TRANSACCION = tipoTransaccion;
             return View();
         }
 
@@ -86,11 +132,23 @@ namespace RETMINSISTEM.Controllers
 
             int ID_KARDEX = Convert.ToInt32(Session["ID_KARDEX"].ToString());
             KARDEX KARDEX = db.KARDEX.Find(ID_KARDEX);
-            
+
+            List<SelectListItem> tipoTransaccion = new List<SelectListItem>();
+
+            var tKardex = from tT in db.TRANSACCION
+                          where tT.NOMBRE_TRANSACCION != "ANULADA"
+                          select tT;
+            foreach (var item in tKardex)
+            {
+                tipoTransaccion.Add(new SelectListItem { Text = item.NOMBRE_TRANSACCION, Value = item.ID_TRANSACCION.ToString() });
+            }
+
+
+
             ViewBag.ISEMPY = DkService.kardexListIsEmpty(ID_KARDEX);
             ViewBag.ID_KARDEX = ID_KARDEX;
             ViewBag.ARTICULO = KARDEX.ARTICULO;
-            ViewBag.ID_TRANSACCION = new SelectList(db.TRANSACCION, "ID_TRANSACCION", "NOMBRE_TRANSACCION");
+            ViewBag.ID_TRANSACCION = tipoTransaccion;
             return View(dESCRIPCION_KARDEX);
         }
 
@@ -122,7 +180,7 @@ namespace RETMINSISTEM.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID_DESCRIPCION_KARDEX,ID_KARDEX,ID_USUARIO,FECHA_KARDEX,DESCRIPCION_KARDEX1,ID_TRANSACCION,VALOR_UNITARIO,CANTIDAD,VALOR,CANTIDAD_SALDO,VALOR_SALDO,CADUCIDAD")] DESCRIPCION_KARDEX dESCRIPCION_KARDEX)
+        public ActionResult Edit([Bind(Include = "ID_DESCRIPCION_KARDEX,ID_KARDEX,ID_USUARIO,FECHA_KARDEX,DESCRIPCION_KARDEX1,ID_TRANSACCION,VALOR_UNITARIO,CANTIDAD,VALOR,CANTIDAD_SALDO,VALOR_SALDO,CADUCIDAD, CANTIDAD_DISPONIBLE")] DESCRIPCION_KARDEX dESCRIPCION_KARDEX)
         {
 
             dESCRIPCION_KARDEX =  DkService.modificarRegistros(dESCRIPCION_KARDEX); // calcula los registros faltantes. 
@@ -134,7 +192,7 @@ namespace RETMINSISTEM.Controllers
                 return RedirectToAction("Index",new { id= dESCRIPCION_KARDEX.ID_KARDEX});
             }
 
-            int ID_KARDEX = Convert.ToInt32(Session["ID_KARDEX"].ToString());
+                 int ID_KARDEX = Convert.ToInt32(Session["ID_KARDEX"].ToString());
             KARDEX KARDEX = db.KARDEX.Find(ID_KARDEX);
             ViewBag.ID_KARDEX = ID_KARDEX;
             ViewBag.ARTICULO = KARDEX.ARTICULO;
@@ -142,6 +200,8 @@ namespace RETMINSISTEM.Controllers
             ViewBag.ID_TRANSACCION = new SelectList(db.TRANSACCION, "ID_TRANSACCION", "NOMBRE_TRANSACCION", dESCRIPCION_KARDEX.ID_TRANSACCION);
             return View(dESCRIPCION_KARDEX);
         }
+
+       
 
         // GET: dKardex/Delete/5
         public ActionResult Delete(int? id)

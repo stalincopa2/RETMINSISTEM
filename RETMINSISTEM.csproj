@@ -162,6 +162,7 @@
     <Compile Include="Models\INVENTARIO.cs" />
     <Compile Include="Models\KARDEX.cs" />
     <Compile Include="Models\Model.cs" />
+    <Compile Include="Models\PAGINA.cs" />
     <Compile Include="Models\PROVEEDOR.cs" />
     <Compile Include="Models\ROL.cs" />
     <Compile Include="Models\SUCURSAL.cs" />

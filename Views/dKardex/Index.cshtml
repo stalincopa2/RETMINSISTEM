@@ -1,20 +1,72 @@
 ﻿@model IEnumerable<RETMINSISTEM.Models.DESCRIPCION_KARDEX>
+@using RETMINSISTEM.Models;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "RETMIN SYSTEM";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@{
+    int pageNo = 0;
+    var pagina = new PAGINA();
+    if (ViewBag.pagina != null)
+    {
+        pagina = ViewBag.pagina;
+        pageNo = pagina.CurrentPage;
+    }
 }
 
-<h2>Index</h2>
+<h2>REGISTRO DE KARDEX DEL PRODUCTO: </h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <input type="hidden" name="id" value="@Session["ID_KARDEX"]">
+        <div class="form-group">
+            <label for="FECHA_KARDEX" class="control-label col-md-2"> BUSCAR POR FECHA</label>
+            <div class="col-md-10">
+                <input class="form-control text-box single-line"  required data-val="true" data-val-date="El campo FECHA_KARDEX debe ser una fecha." data-val-required="El campo FECHA_KARDEX es obligatorio." id="fecha" name="fecha" type="date" value="">
+                <span class="field-validation-valid text-danger" data-valmsg-for="FECHA_KARDEX" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Buscar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
 <table class="table">
     <tr>
-        <th>
-            USUARIO
+
+        <th colspan="3" "></th>
+
+        <th colspan="3" style=" text-align:center;">
+            ENTRADAS
         </th>
+        <th colspan="3" style=" text-align:center;">
+            SALIDAS
+        </th>
+        <th colspan="3" style=" text-align:center;">
+            SALDO
+        </th>
+        <th colspan="2">
+
+        </th>
+    </tr>
+
+    <tr style="font-size:10px;">
         <th>
             FECHA
         </th>
@@ -25,84 +77,145 @@
             TIPO DE TRANSACCIÓN
         </th>
         <th>
-            C. UNITARIO
+            COSTO U
         </th>
         <th>
-           CANTIDAD
+            CANTIDAD
         </th>
         <th>
-           VALOR TOTAL
+            VALOR TOTAL
         </th>
         <th>
-           CANTITAD SALDO
+            COSTO U
         </th>
         <th>
-           VALOR SALDO
+            CANTIDAD
+        </th>
+        <th>
+            VALOR TOTAL
+        </th>
+        <th>
+            CANTITAD SALDO
+        </th>
+        <th>
+            VALOR SALDO
         </th>
         <th>
             FECHA CADUCIDAD
         </th>
         <th>CANTIDAD DISPONIBLE</th>
         <th></th>
+
     </tr>
 
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.USUARIO.COD_USUARIO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FECHA_KARDEX)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DESCRIPCION_KARDEX1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ID_TRANSACCION)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VALOR_UNITARIO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CANTIDAD)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VALOR)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CANTIDAD_SALDO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VALOR_SALDO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CADUCIDAD)
-        </td>
-        @{
-            if (item.CANTIDAD_DISPONIBLE != null)
-            {
-                <td>
-                    @Html.DisplayFor(modelItem => item.CANTIDAD_DISPONIBLE)
-                </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.FECHA_KARDEX)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DESCRIPCION_KARDEX1)
+            </td>
+            <td>
+                @{
+                    if (item.ID_TRANSACCION == null)
+                    {
+                        <p>PRIMER REGISTRO</p>
+
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.TRANSACCION.NOMBRE_TRANSACCION)
+                    }
+
+                }
+
+            </td>
+            @{if (item.ID_TRANSACCION == 2)
+                {
+                    <td colspan="3"></td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VALOR_UNITARIO)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CANTIDAD)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VALOR)
+                    </td>
+                }
+                else
+                {
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VALOR_UNITARIO)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CANTIDAD)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VALOR)
+                    </td>
+                    <td colspan="3"></td>
+
+                }
+            }
+
+            <td>
+                @Html.DisplayFor(modelItem => item.CANTIDAD_SALDO)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VALOR_SALDO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CADUCIDAD)
+            </td>
+            @{
+                if (item.CANTIDAD_DISPONIBLE != null)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CANTIDAD_DISPONIBLE)
+                    </td>
+
+                }
+                else
+                {
+                    <td>
+                        -
+                    </td>
+
+                }
 
             }
-            else
-            {
-                <td>
-                   -
-                </td>
 
-            }
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID_DESCRIPCION_KARDEX }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID_DESCRIPCION_KARDEX }) |
 
-        }
-
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ID_DESCRIPCION_KARDEX }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ID_DESCRIPCION_KARDEX }) |
-
-        </td>
-    </tr>
-}
+            </td>
+        </tr>
+    }
 
 </table>
+<div class="container">
+    @if (pagina.TotalPages > 0)
+    {
+        <ul class="pagination justify-content-end">
+            @for (var pge = pagina.StartPage; pge <= pagina.EndPage; pge++)
+            {
+
+                <li class="page-item" @(pge == pagina.CurrentPage ? "active" : "")>
+                    @Html.ActionLink(@pge.ToString(), "Index", "DKardex", new { id = Session["ID_KARDEX"], pg = @pge }, new { @class = "page-link" })
+                </li>
+            }
+
+        </ul>
+
+    }
+
+</div>
+
+<a>@Html.ActionLink("Regresar", "Movimiento", "Home")</a>

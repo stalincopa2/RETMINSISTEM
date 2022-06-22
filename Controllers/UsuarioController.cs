@@ -43,9 +43,21 @@ namespace RETMINSISTEM.Controllers
         // GET: usuario/Create
         public ActionResult Create()
         {
-            ViewBag.ID_ROL = new SelectList(db.ROL, "ID_ROL", "NOMBRE_ROL");
+            List<SelectListItem> tipoKardex = new List<SelectListItem>();
+            var tKardex = from r in db.ROL
+                          where r.NOMBRE_ROL!= "4"
+                          select r;
+
+            foreach (var item in tKardex)
+            {
+                tipoKardex.Add(new SelectListItem { Text = item.NOMBRE_ROL, Value = item.ID_ROL.ToString() });
+            }
+
+
+            ViewBag.ID_ROL = tipoKardex;
             ViewBag.ID_SUCURSAL = new SelectList(db.SUCURSAL, "ID_SUCURSAL", "NOMBRE_SUCURSAL");
             return View();
+
         }
 
         // POST: usuario/Create
@@ -99,7 +111,16 @@ namespace RETMINSISTEM.Controllers
             {
 
             }
-            ViewBag.ID_ROL = new SelectList(db.ROL, "ID_ROL", "NOMBRE_ROL", uSUARIO.ID_ROL);
+            List<SelectListItem> tipoKardex = new List<SelectListItem>();
+            var tKardex = from r in db.ROL
+                          where r.NOMBRE_ROL != "4"
+                          select r;
+
+            foreach (var item in tKardex)
+            {
+                tipoKardex.Add(new SelectListItem { Text = item.NOMBRE_ROL, Value = item.ID_ROL.ToString() });
+            }
+            ViewBag.ID_ROL = tipoKardex;
             ViewBag.ID_SUCURSAL = new SelectList(db.SUCURSAL, "ID_SUCURSAL", "NOMBRE_SUCURSAL",uSUARIO.ID_SUCURSAL);
             return View(uSUARIO);
         }

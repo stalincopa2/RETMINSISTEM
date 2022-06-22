@@ -50,9 +50,20 @@ namespace RETMINSISTEM.Controllers
         // GET: kardex/Create
         public ActionResult Create()
         {
+            List<SelectListItem> tipoKardex = new List<SelectListItem>();
+            var tKardex = from tk in db.TIPO_KARDEX
+                          where tk.NOMBRE_TIPO != "Inactivo"
+                          select tk;
+
+            foreach (var item in tKardex) {
+                tipoKardex.Add(new SelectListItem { Text = item.NOMBRE_TIPO, Value = item.ID_TIPO_KARDEX.ToString() });
+            }
+          
+
             ViewBag.ID_BODEGA = new SelectList(db.BODEGA, "ID_BODEGA", "COD_BODEGA");
             ViewBag.ID_PROVEEDOR = new SelectList(db.PROVEEDOR, "ID_PROVEEDOR", "COD_PROOVEDOR");
-            ViewBag.ID_TIPO_KARDEX = new SelectList(db.TIPO_KARDEX, "ID_TIPO_KARDEX", "NOMBRE_TIPO");
+
+            ViewBag.ID_TIPO_KARDEX = tipoKardex;
             // ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO");
             return View();
         }
@@ -81,11 +92,19 @@ namespace RETMINSISTEM.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            List<SelectListItem> tipoKardex = new List<SelectListItem>();
+            var tKardex = from tk in db.TIPO_KARDEX
+                          where tk.NOMBRE_TIPO != "Inactivo"
+                          select tk;
+            foreach (var item in tKardex)
+            {
+                tipoKardex.Add(new SelectListItem { Text = item.NOMBRE_TIPO, Value = item.ID_TIPO_KARDEX.ToString() });
+            }
 
             ViewBag.ID_BODEGA = new SelectList(db.BODEGA, "ID_BODEGA", "COD_BODEGA", kARDEX.ID_BODEGA);
             ViewBag.ID_PROVEEDOR = new SelectList(db.PROVEEDOR, "ID_PROVEEDOR", "COD_PROOVEDOR", kARDEX.ID_PROVEEDOR);
             ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO", kARDEX.ID_USUARIO);
-            ViewBag.ID_TIPO_KARDEX = new SelectList(db.TIPO_KARDEX, "ID_TIPO_KARDEX", "NOMBRE_TIPO", kARDEX.ID_TIPO_KARDEX);
+            ViewBag.ID_TIPO_KARDEX = tipoKardex;
             return View(kARDEX);
         }
 
@@ -101,6 +120,7 @@ namespace RETMINSISTEM.Controllers
             {
                 return HttpNotFound();
             }
+
             ViewBag.ID_BODEGA = new SelectList(db.BODEGA, "ID_BODEGA", "COD_BODEGA", kARDEX.ID_BODEGA);
             ViewBag.ID_PROVEEDOR = new SelectList(db.PROVEEDOR, "ID_PROVEEDOR", "COD_PROOVEDOR", kARDEX.ID_PROVEEDOR);
             ViewBag.ID_USUARIO = new SelectList(db.USUARIO, "ID_USUARIO", "COD_USUARIO", kARDEX.ID_USUARIO);
@@ -157,7 +177,7 @@ namespace RETMINSISTEM.Controllers
         {
             KARDEX kARDEX = db.KARDEX.Find(id);
             db.KARDEX.Remove(kARDEX);
-            db.SaveChanges();
+             db.SaveChanges();
             return RedirectToAction("Index");
         }
 

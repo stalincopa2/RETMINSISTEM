@@ -18,7 +18,7 @@ namespace RETMINSISTEM.Service
         /*Me retorna todos los registros de un solo kardex, filtrado por ID*(Este metodo es aplicable unicamente para mostrar una vista filtrada por ID)*/
         public IQueryable<DESCRIPCION_KARDEX> DkardexListByIdKardex(int? id) {
             var dESCRIPCION_KARDEX = from k in db.DESCRIPCION_KARDEX
-                                     where k.ID_KARDEX == id
+                                     where k.ID_KARDEX == id && k.ID_TRANSACCION <= 2
                                      select k;
             return dESCRIPCION_KARDEX;
         }
@@ -84,7 +84,7 @@ namespace RETMINSISTEM.Service
                 {
                     foreach (var item1 in dESCRIPCION_KARDEX)
                     {
-                    if (dimensionConsulta == 2)
+                    if (dimensionConsulta >= 2)
                         cantidadTotal += item1.CANTIDAD_DISPONIBLE; // canculando el stock total disponible 
                     else
                         break;
@@ -131,7 +131,7 @@ namespace RETMINSISTEM.Service
 
             double? cantidadAux=0;
             var kardexesActuales = (from k in db.DESCRIPCION_KARDEX
-                                   where k.ID_KARDEX == ID_KARDEX 
+                                   where k.ID_KARDEX == ID_KARDEX && k.ID_TRANSACCION <=2 // no toma en cuenta los anulados s
                                    select k).OrderByDescending(K=> K.ID_DESCRIPCION_KARDEX) ;
          
             
@@ -184,6 +184,8 @@ namespace RETMINSISTEM.Service
                         else
                             dESCRIPCION_KARDEX.CANTIDAD_SALDO = null;
                         break;
+                    case 3: // anulacion 
+                        return dESCRIPCION_KARDEX; // despues de haberse restaurado los valores anteriores, se envia el mismo objeto con el Tipo de transaccion anulado.     
                 }
             }
             else // significa que es un inventario incial 
